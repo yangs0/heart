@@ -16,9 +16,10 @@ class TestController extends Controller
     public function createPost(UserResitoryInterfaces $repository)
     {
         // validate request, create the post, and...
-        $member = Auth::user()->member();
+       /* $member = Auth::user()->member();
         $member->incrementPostCount();
-        $repository->save($member);
+        $repository->save($member);*/
+       dd("aaa");
     }
     public function deletePost(UserResitoryInterfaces $repository)
     {
