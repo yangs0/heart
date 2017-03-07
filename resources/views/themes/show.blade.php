@@ -4,75 +4,25 @@
     @include('themes.partials.banner')
     <div class="container">
         <div class="col-sm-8">
-            <div class="whitebk setborder">
+
+            <div class="topics-list-box whitebk setborder">
+                <div class="topics-list-header">
+                    <h4 class="title">相关推荐</h4>
+                </div>
+                @include('topics.partials.list')
+            </div>
+
+            <div class="whitebk setborder other">
+
+            </div>
+        </div>
+
+        <div class="col-md-4 hidden-sm">
+
+
+            <div class="whitebk setborder row">
                 <div class="sidebar-item">本月热门文章</div>
                 <ul class="favorite-list">
-                    <li>
-                        <h3>
-                            <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
-                        </h3>
-                        <span class="favorite-info">
-                            <span class="favorite-info-time pull-right">02-23 09:36</span>
-                            <span style="padding-left:20px;"></span>
-                            <a class="overdot inb" href="/u578991?from=exp_sidebar">造梦者影视工作室</a>
-                            <a class="user-v-p-14 inb icon-user-v" href="http://www.xinpianchang.com/user/userverify/ts-intro?from=exp_sidebar" target="_blank" title="认证用户"></a>
-                        </span>
-                    </li>
-                    <li>
-                        <h3>
-                            <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
-                        </h3>
-                        <span class="favorite-info">
-                            <span class="favorite-info-time pull-right">02-23 09:36</span>
-                            <span style="padding-left:20px;"></span>
-                            <a class="overdot inb" href="/u578991?from=exp_sidebar">造梦者影视工作室</a>
-                            <a class="user-v-p-14 inb icon-user-v" href="http://www.xinpianchang.com/user/userverify/ts-intro?from=exp_sidebar" target="_blank" title="认证用户"></a>
-                        </span>
-                    </li>
-                    <li>
-                        <h3>
-                            <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
-                        </h3>
-                        <span class="favorite-info">
-                            <span class="favorite-info-time pull-right">02-23 09:36</span>
-                            <span style="padding-left:20px;"></span>
-                            <a class="overdot inb" href="/u578991?from=exp_sidebar">造梦者影视工作室</a>
-                            <a class="user-v-p-14 inb icon-user-v" href="http://www.xinpianchang.com/user/userverify/ts-intro?from=exp_sidebar" target="_blank" title="认证用户"></a>
-                        </span>
-                    </li>
-                    <li>
-                        <h3>
-                            <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
-                        </h3>
-                        <span class="favorite-info">
-                            <span class="favorite-info-time pull-right">02-23 09:36</span>
-                            <span style="padding-left:20px;"></span>
-                            <a class="overdot inb" href="/u578991?from=exp_sidebar">造梦者影视工作室</a>
-                            <a class="user-v-p-14 inb icon-user-v" href="http://www.xinpianchang.com/user/userverify/ts-intro?from=exp_sidebar" target="_blank" title="认证用户"></a>
-                        </span>
-                    </li>
-                    <li>
-                        <h3>
-                            <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
-                        </h3>
-                        <span class="favorite-info">
-                            <span class="favorite-info-time pull-right">02-23 09:36</span>
-                            <span style="padding-left:20px;"></span>
-                            <a class="overdot inb" href="/u578991?from=exp_sidebar">造梦者影视工作室</a>
-                            <a class="user-v-p-14 inb icon-user-v" href="http://www.xinpianchang.com/user/userverify/ts-intro?from=exp_sidebar" target="_blank" title="认证用户"></a>
-                        </span>
-                    </li>
-                    <li>
-                        <h3>
-                            <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
-                        </h3>
-                        <span class="favorite-info">
-                            <span class="favorite-info-time pull-right">02-23 09:36</span>
-                            <span style="padding-left:20px;"></span>
-                            <a class="overdot inb" href="/u578991?from=exp_sidebar">造梦者影视工作室</a>
-                            <a class="user-v-p-14 inb icon-user-v" href="http://www.xinpianchang.com/user/userverify/ts-intro?from=exp_sidebar" target="_blank" title="认证用户"></a>
-                        </span>
-                    </li>
                     <li>
                         <h3>
                             <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
@@ -109,17 +59,7 @@
                 </ul>
             </div>
 
-
-            <div class="topics-list-box whitebk setborder">
-                <div class="topics-list-header">
-                    <h4 class="title">相关推荐</h4>
-                </div>
-                @include('topics.partials.list')
-            </div>
-        </div>
-
-        <div class="col-md-4 hidden-sm">
-            <div class="whitebk setborder row">
+            <div class="whitebk setborder other row">
                 <h4 class="post-right-title">精彩点评</h4>
                 <ul class="ori-list">
                     <li id="c_337864">
