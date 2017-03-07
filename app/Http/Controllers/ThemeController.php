@@ -30,7 +30,7 @@ class ThemeController extends Controller
         $recommend = $topic->fetchThemeTopicesWithFilter($theme->id,'excellent',3);
         $newTopics = $topic->fetchThemeTopicesWithFilter($theme->id,'default',5);
         $topics = $topic->getThemeTopicsWithFilter($theme->id, 'noreply', 3);
-        return view('themes.show',compact('theme', 'recommend', 'topics', 'newTopics'));
+        return view('themes.show2',compact('theme', 'recommend', 'topics', 'newTopics'));
     }
 
     public function fetch_theme(Request $request){

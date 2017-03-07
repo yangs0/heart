@@ -72,9 +72,9 @@
                         <i class="fa fa-clock-o"></i>
                         活动时间：{{$activity->date}}
                     </div>
-                    <div class="activity-address odt" title=" {{$activity->place}}">
+                    <div class="activity-address odt" title="活动地点： {{$activity->place}}">
                         <i class="fa fa-map-marker"></i>
-                        {{$activity->place}}
+                        &nbsp;活动地点：{{$activity->place}}
                     </div>
                 </div>
             </div>
