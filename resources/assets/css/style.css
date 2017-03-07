@@ -1387,6 +1387,9 @@ h3 .mark {
     color: #333;
 }
 
+.over-hidden{
+    overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
 /*-------commom-------*/
 
 .comment {
@@ -1628,9 +1631,6 @@ h3 .mark {
 .replies-box .reply-content{
     color:#666;
     margin: 5px 5px 0 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 .avatar{
     width: 45px;

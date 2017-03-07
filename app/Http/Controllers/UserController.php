@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Reply;
+use App\Models\Topic;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -73,7 +75,6 @@ class UserController extends Controller
          $recentTopic = app('App\Repositories\TopicRepositories')->fetchTopicsWithFilterByUserId($id, 5)->take(5)->get();
          */
         $user = User::findOrFail($id);
-        $topics = app('App\Models\Topic')->getUserTopicWithFilter($id,'default', 8);
 
         return view('user.show_comment', compact('user', 'topics'));
     }
