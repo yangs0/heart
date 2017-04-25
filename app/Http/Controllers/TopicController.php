@@ -101,12 +101,11 @@ class TopicController extends Controller
 
     /**
      * Display the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        $topic = app('App\Models\Topic')->getTopicShow($id);
+        $topic = app(Topic::class)->getTopicShow($id);
         $user = $topic->user;
         $mayCareTopics = app(Topic::class)->fetchThemeTopicesWithFilter($topic->theme_id,'vote',6);
         $replies = $topic->replies()->with('user')->paginate(6);
@@ -158,5 +157,7 @@ class TopicController extends Controller
         //return response(['status' => 200]);
        // return response()->json(['status'=>'200','data'=>[], 'msg'=>$msg]);
     }
+
+
 
 }

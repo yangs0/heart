@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="jumbotron" style="background: rgba(0, 0, 0, 0) url('/uploads/banner/1481865834039_39.jpg') no-repeat scroll center top / cover ;margin-top: -26px;height:200px;position: relative"></div>
-    <div class="container">
+    <div class="container" >
         {{--<div class="row album-title">
             校园广场
             <span class="album-subtitle">
@@ -19,7 +19,7 @@
                 </section>--}}
             </div>
 
-            <div class="box-right" >
+            <div class="box-right " >
                 @include('themes.partials.activities')
                 <div class="hot-theme-list">
                     <h5 class="title">

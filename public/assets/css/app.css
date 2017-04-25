@@ -290,7 +290,7 @@ a {
 a:hover,
 a:focus {
   color: #23527c;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:focus {
   outline: 5px auto -webkit-focus-ring-color;
@@ -4772,9 +4772,7 @@ button.close {
 .affix {
   position: fixed;
 }
-@-ms-viewport {
-  width: device-width;
-}
+
 .visible-xs,
 .visible-sm,
 .visible-md,
@@ -7574,6 +7572,9 @@ h3 .mark {
     margin-top: 10px;
     position: relative;
 }
+.maintext .mainbottomtext .site a:hover{
+  font-weight: bolder;
+}
 .maintext .mainbottomtext p {
     padding: 0 20px;
 }
@@ -7585,11 +7586,11 @@ h3 .mark {
 }
 
 .maintext .mainbottomtext .botext {
-    background: rgba(0, 0, 0, 0) url("../img/botext.png") no-repeat scroll 0 0;
+
     bottom: 15px;
     height: 113px;
     left: -10px;
-    padding: 20px 0;
+    padding: 10px 0;
     position: absolute;
     text-align: center;
     width: 290px;
@@ -7597,6 +7598,11 @@ h3 .mark {
 .maintext .mainbottomtext .botext p {
     color: #ddd;
     font-size: 12px;
+    padding: 5px 0
+}
+.maintext .mainbottomtext .botext .btn {
+  margin: 0 5px;
+  font-weight: bolder;
 }
 /*.colsolider {
     border-bottom: 1px solid #dfdfdf;
@@ -7676,7 +7682,7 @@ h3 .mark {
 }
 .theme-nav{
     background-color: #FFF;
-    padding: 10px 0;
+    padding: 0 0;
     border-bottom: 1px solid #dfdfdf;
 }
 .theme-list{
@@ -7684,6 +7690,7 @@ h3 .mark {
 }
 .theme-list .list-group-item{
     border: none;
+  padding-bottom: 0;
 }
 .mctitle {
     color: #333;
@@ -8280,6 +8287,119 @@ h3 .mark {
 .favorite-info-time {
   margin: 10px 0 0;
 }
+.top-wrapper .top-banner {
+  float: left;
+  /*height: 380px;
+  width: 580px;*/
+  position: relative;
+}
+.top-wrapper .item-card, .top-wrapper .top-banner {
+  overflow: hidden;
+}
+.top-wrapper .item-card.other{
+  margin-top: 20px;
+}
+.top-wrapper img {
+   backface-visibility: hidden;
+   transition: transform 2.0s linear 0s;
+ }
+
+.top-wrapper .item-card .exp-cover, .top-wrapper .item-card .art-cover, .top-wrapper .top-banner .first-cover {
+  background: rgba(0, 0, 0, 0.36);
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  padding: 4%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all 0.3s ease 0s;
+}
+.top-wrapper:hover .img-scale{
+  transform: scale(1.09,1.09);
+}
+.top-wrapper .item-card .exp-cover, .top-wrapper .item-card .art-cover:hover, .top-wrapper .top-banner .first-cover:hover {
+  opacity: 1;
+}
+.top-wrapper .top-banner .fisrt-intro {
+  bottom: 0;
+  left: 0;
+  padding-bottom: 20px;
+  position: absolute;
+  width: 100%;
+}
+.top-wrapper .top-banner .fisrt-intro .first-detail {
+  color: #fff;
+  font-size: 12px;
+  padding: 0 25px 10px;
+}
+.top-wrapper .top-banner .fisrt-intro .first-title {
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: 2px;
+  padding: 0 25px;
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.over-hidden{
+
+  overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+}
+.top-wrapper .item-card a {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+.text-infor {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  margin-top: 20px;
+}
+.text-infor .fa {
+  color: #fff;
+  font-size: 20px;
+}
+.text-infor .author{
+  color: #fff;
+}
+.text-infor .title {
+  color: #fff;
+  display: block;
+  font-size: 16px;
+}
+.top-wrapper .user-card {
+ /* background: #fff none repeat scroll 0 0;*/
+  float: left;
+  height: 340px;
+  margin-left: 20px;
+  padding: 20px;
+  text-align: center;
+  width: 240px;
+}
+.top-wrapper .user-card.nologined .user-card-bg {
+  left: 0;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+.top-wrapper img {
+  backface-visibility: hidden;
+  transition: transform 2.5s linear 0s;
+}
+.user-login-title {
+  color: #fff;
+  font-size: 20px;
+  line-height: 2;
+  margin-bottom: 0;
+  margin-top: 0;
+  text-align: left;
+}
+
+
 
 
 .setborder {
@@ -8323,6 +8443,7 @@ h3 .mark {
 .theme-info-ext .relevant-posts > .post-lists a{
     text-decoration: none;
     cursor: pointer;
+    max-height: 180px;
 }
 .theme-info-ext .relevant-posts > .post-lists a .caption{
     padding-bottom: 0;
@@ -8436,6 +8557,9 @@ h3 .mark {
     color: #2092d9;
     font-weight: 700;
     font-size: 12px;
+}
+a.aname{
+  text-decoration: none;
 }
 .more-list ul {
     margin: 0 20px;
@@ -8768,7 +8892,7 @@ h3 .mark {
     background-color: #E6E6E6;
 }
 .author-box {
-    margin:  100px 15px 20px 25px;
+    margin:  50px 15px 20px 25px;
     padding: 20px;
     border: 1px solid #5bc0de;
 }
@@ -8941,8 +9065,13 @@ h3 .mark {
   text-align: right;
   padding-top: 8px;
 }
-
-
+.reply-btn .sbtn{
+  color: #999;
+  font-size: 18px;
+}
+.reply-btn .sbtn:hover{
+  color: #ffd890;
+}
 /*-----用户页------*/
 .user-box{
     background-color: #fff;
@@ -9117,6 +9246,12 @@ h3 .mark {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.avatar-list{
+
+}
+.avatar-list .avatar{
+  margin-bottom: 8px;
 }
 .avatar{
     width: 45px;
@@ -9470,8 +9605,19 @@ h3 .mark {
     padding: 10px 30px ;
     color: #FFF;
     font-size: 18px;
-    padding: 10px 30px ;
     position: relative;
+
+}
+.theme-links ul li a{
+  color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+.theme-links ul li:hover a{
+  border-bottom: 2px solid rgb(225, 255, 209);
+}
+.theme-links ul li.active:hover a{
+  border-bottom: none;
 }
 
 .theme-links ul li.active{
@@ -9530,8 +9676,9 @@ h3 .mark {
 .chat-panel{
     overflow-y:scroll;
     overflow-x:hidden;
-    max-height: 400px;
-    min-height: 400px;
+    max-height: 450px;
+    min-height: 450px;
+
 }
 .bubble {
     margin:0px auto;
@@ -9567,6 +9714,8 @@ h3 .mark {
 }
 .c-t{
     position: relative;
+    margin-right: 25px;
+  margin-top: -23px;
 }
 .c-t .lab{
     font-size: 12px;
@@ -9583,7 +9732,7 @@ h3 .mark {
 }
 .triangle {
     position:absolute;
-    top:50%;
+    top:42%;
     margin-top:-8px;
     left:42px;
     display:block;
@@ -9595,7 +9744,7 @@ h3 .mark {
     border-bottom:8px solid #FFF;
     border-top:8px solid #FFF;
     border-left:none;
-    border-right:8px solid #4889F0;
+    border-right:8px solid #4787ED;
 }
 
 .bubble-item .article {
@@ -9621,10 +9770,11 @@ h3 .mark {
 .fr .triangle {
     left:auto;
     right:42px;
+  top:50%;
     border-bottom:8px solid #FFF;
     border-top:8px solid #FFF;
     border-right:none;
-    border-left:8px solid #3079ED;
+    border-left:8px solid #4787ED;
 }
 
 .fr .article {
@@ -10009,7 +10159,13 @@ h3 .mark {
 }
 /* 中等屏幕（桌面显示器，大于等于992px） */
 @media (min-width: 992px) {
-
+  .box-left{
+    width: 75%;
+  }
+  .box-right{
+    width: 25%;
+    display: block;
+  }
 }
 
 /* 大屏幕（大桌面显示器，大于等于1200px） */

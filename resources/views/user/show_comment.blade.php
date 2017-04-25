@@ -1,5 +1,5 @@
 @extends('layouts.default')
-
+@section('style')<link href="{{asset('/assets/css/jquery.sinaEmotion.css')}}" rel="stylesheet">@stop
 @section('content')
     <div class="container">
         <div class="col-md-3">
@@ -23,16 +23,16 @@
 
             <div class="panel panel-default replies-box">
                 <div class="panel-heading">
-                    最近文章
+                    最近评论
                 </div>
 
                 @if($replies->count())
                     <ul class="list-group">
                         @foreach($replies as $reply)
                             <li class="list-group-item">
-                                <span class="at-time">at {{$reply->created_at}}</span>
+                                <span class="at-time">{{$reply->created_at->diffForHumans()}}</span>
                                 <h5 class="list-group-item-heading over-hidden">
-                                    <a href="" title="{{$reply->replable->title}}">{{$reply->replable->title}}</a>
+                                    <a href="{{$reply->replable->getUrl()}}" title="{{$reply->replable->title}}">{{$reply->replable->title}}</a>
                                 </h5>
                                 <p class="reply-content over-hidden">{{$reply->content}}</p>
                             </li>
@@ -49,5 +49,13 @@
             </div>
         </div>
     </div>
-
 @endsection
+
+@section('script')
+    <script type="text/javascript" src="/assets/js/jquery.sinaEmotion.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".list-group").parseEmotion();
+        });
+    </script>
+    @stop

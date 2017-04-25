@@ -1,6 +1,6 @@
 <div class="author-box">
     <div class="author-avatar">
-        <a href="#"><img src="/uploads/avatar/default.jpg" alt="" class="img-responsive img-circle img-thumbnail"></a>
+        <a href="{{route('users.show',$user->id)}}"><img src="{{$user->avatar}}" alt="" class="img-responsive img-circle img-thumbnail"></a>
     </div>
     <div class="author-info">
         <div class="about">
@@ -22,16 +22,16 @@
                         </div>
                     </div>
                     <div class="row info">
-                        <div class="col-sm-4">
+                        <div class="col-sm-offset-8 col-sm-4">
                             {{$topic->created_at->diffForHumans()}}
                         </div>
-                        <div class="col-sm-8 tags-list">
+                        {{--<div class="col-sm-8 tags-list">
                             <i class="fa fa-link"></i>
                             <span><a href="#"> 电商</a><span>·</span></span>
                             <span><a href="#" >媒体</a><span>·</span></span>
                             <span><a href="#" >微软</a></span>
-                            <span><a href="#" >微软</a></span>
-                        </div>
+                            <span><a href="#" ></a></span>
+                        </div>--}}
                     </div>
                 </li>
                 @endforeach

@@ -18,7 +18,9 @@ Auth::routes();
 Route::get("/active/verify/{token}/{email}", "UserController@activeUser")->name("email.verify");
 
 Route::get('/themes', 'ThemeController@index');  //主题广场-- （活动列表尚为完成，尚有链接，图像细节尚未补全）
-Route::get('/themes/{id}/{filter?}', 'ThemeController@show')->name('theme.show');  //主题  (区分topic 类别，尚未完成)
+Route::get('/themes/{id}', 'ThemeController@show')->name('theme.show');  //主题  (区分topic 类别，尚未完成)
+Route::get('/themes/{id}/topic', 'ThemeController@show_topic')->name('theme.show_topic');  //主题  (区分topic 类别，尚未完成)
+Route::get('/themes/{id}/video', 'ThemeController@show_video')->name('theme.show_video');  //主题  (区分topic 类别，尚未完成)
 
 //topic.show, 类别区分 尚未完成，
 //topic.create  右侧部分尚未玩成
@@ -57,13 +59,14 @@ Route::post('/replies', 'RepliesController@store')->name('replies.store');
 // *************************以下部分暂且没用， 或属于严重未完成部分*****************************************************
 Route::get('/test', 'TestController@aaaa');
 Route::post('/api/topic/{id}/vote', "TopicController@doVote");
-Route::post('/api/chat', 'DormController@chat');
-
+//Route::post('/api/chat', 'DormController@chat');
 
 
 //宿舍部分，尚未完成
-Route::get('/dorm/{id}/require', 'DormController@required');
-Route::resource('/dorm', 'DormController', ['only'=>['index','edit','show','create','store','update','test']]);
+Route::post('/rooms/chat', 'RoomsController@chat')->name('chat.msg');
+Route::get('/rooms/{id}/require', 'DormController@required');
+
+Route::resource('/rooms', 'RoomsController', ['only'=>['index','edit','show','create','store','update','test']]);
 
 //活动功能好像还什么都没做呢
 Route::resource('activities', 'ActivityController', ['only'=>['index','show','create','store']]); //活动

@@ -43,7 +43,9 @@ class TestController extends Controller
         dd( \DB::getQueryLog());*/
        //return view("explore");
         \DB::enableQueryLog();
-
+        $t = Topic::where('theme_id',1)->groupBy('user_id')->orderBy('user_count', 'desc')->with('user')
+            ->select(\DB::raw('count(*) as user_count, user_id'))->get()->pluck('user');
+        dump($t);
         dd( \DB::getQueryLog());
 
       // Redis::publish('chatRoom',json_encode(['event'=>"sdasdas", "data"=>["name"=>"dsad"]]));

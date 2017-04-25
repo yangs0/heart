@@ -17,7 +17,7 @@ class CreateChatMsgTable extends Migration
             $table->increments('id');
             $table->string('message');
             $table->integer('user_id')->unsigned()->index();
-            $table->integer('dorm_id')->unsigned()->index();
+            $table->integer('room_id')->unsigned()->index();
             $table->timestamps();
         });
     }

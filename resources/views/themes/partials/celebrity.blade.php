@@ -1,52 +1,26 @@
 <ul class="list-unstyled">
-    <li class="clearfix">
-        <div class="l">
-            <a href="http://lib.csdn.net/base/agile" target="_blank">
-                <img src="./img/a8.jpg" alt="" data-bd-imgshare-binded="1" class="img-circle">
-            </a>
-        </div>
-        <div class="r">
-            <a class="htitle" href="http://lib.csdn.net/base/agile" target="_blank">敏捷</a>
-            <p>
-                <em>2545 </em>
-                关注者
-                <em>144 </em>
-                条收录
-            </p>
-        </div>
-    </li>
 
-    <li class="clearfix">
-        <div class="l">
-            <a href="http://lib.csdn.net/base/agile" target="_blank">
-                <img src="./img/a8.jpg" alt="" data-bd-imgshare-binded="1" class="img-circle">
-            </a>
-        </div>
-        <div class="r">
-            <a class="htitle" href="http://lib.csdn.net/base/agile" target="_blank">敏捷</a>
-            <p>
-                <em>2545 </em>
-                关注者
-                <em>144 </em>
-                条收录
-            </p>
-        </div>
-    </li>
+    @foreach($celebritiesAll->take(5) as $celebrity)
+        <li class="clearfix">
+            <div class="l">
+                <a href="http://lib.csdn.net/base/agile" >
+                    <img src="{{$celebrity->avatar}}" alt="..."  class="img-circle">
+                </a>
+            </div>
+            <div class="r">
+                <a href="{{route('users.show', $celebrity->id)}}" class="aname">{{$celebrity->name}}</a>
+                <p>
+                    <em>{{$celebrity->follower_count}} </em>
+                    关注者
+                    <em>{{$celebrity->topics_count}} </em>
+                    个话题
+                </p>
+            </div>
+        </li>
+        @endforeach
 
-    <li class="clearfix">
-        <div class="l">
-            <a href="http://lib.csdn.net/base/agile" target="_blank">
-                <img src="./img/a8.jpg" alt="" data-bd-imgshare-binded="1" class="img-circle">
-            </a>
-        </div>
-        <div class="r">
-            <a class="htitle" href="http://lib.csdn.net/base/agile" target="_blank">敏捷</a>
-            <p>
-                <em>2545 </em>
-                关注者
-                <em>144 </em>
-                条收录
-            </p>
-        </div>
-    </li>
+
+
+
+
 </ul>

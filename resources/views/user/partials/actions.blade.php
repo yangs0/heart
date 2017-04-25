@@ -5,7 +5,7 @@
     </a>
     <a href="{{route('users.comment', $user->id)}}" class="list-group-item">
         <i class="text-md fa fa-comment"></i>
-        Ta 发表的回复
+        Ta 发表的评论
     </a>
     <a href="#" class="list-group-item">
         <i class="text-md fa fa-eye"></i>

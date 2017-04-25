@@ -1,4 +1,4 @@
-<div class="carousel slide car-act" id="activity">
+<div class="carousel slide car-act" id="activity"  data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#activity" data-slide-to="0" class="active"></li>
         <li data-target="#activity" data-slide-to="1"></li>

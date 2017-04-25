@@ -39,7 +39,7 @@ class Topic extends Model
 
     public function getTopicFilter($request_filter)
     {
-        $filters = ['excellent', 'vote', 'noreply'];
+        $filters = ['excellent', 'vote', 'reply','topic-recent','video','topic-reply'];
         if (in_array($request_filter, $filters)) {
             return $request_filter;
         }
@@ -48,7 +48,7 @@ class Topic extends Model
 
     public function scopeApplyFilter($query, $filter)
     {
-        $query = $query->withoutBanned()->orderBy('created_at', 'desc');
+        $query = $query->withoutBanned();
         switch ($filter) {
             case 'excellent':  //推荐的topic,,is_excellent
                 return $query->where('is_excellent', 'yes');
@@ -56,11 +56,18 @@ class Topic extends Model
             case 'vote':
                 return $query->orderBy('vote_count', 'desc');
                 break;
-            case 'noreply':
+            case 'reply':
                 return $query->orderBy('reply_count','desc');
                 break;
+            case 'topic-recent':
+                return $query->whereIn('type', ['reprint','original'])->orderBy('created_at', 'desc');
+            case 'topic-reply':
+                return $query->whereIn('type', ['reprint','original'])->orderBy('reply_count','desc');
+            case 'video':
+                return $query->where('type', 'video')->orderBy('created_at', 'desc');
+
             default:
-                return $query;
+                return $query->orderBy('created_at', 'desc');
                 break;
         }
     }
@@ -118,4 +125,8 @@ class Topic extends Model
     }
 
 
+
+    public function getUrl(){
+        return route("topic.show", $this->id);
+    }
 }

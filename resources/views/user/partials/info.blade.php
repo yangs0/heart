@@ -73,6 +73,7 @@
     @endif
 </div>
 @section('script')
+    @parent
     <script>
         $("#follow").bind('click', function () {
             $.ajax({

@@ -15,8 +15,8 @@
         <div class="collapse navbar-collapse" id="nav-list">
             <ul class="nav navbar-nav">
 
-                <li><a href="#">校园区</a></li>
-                <li><a href="#">宿舍区</a></li>
+                <li><a href="{{url('/themes')}}">主题</a></li>
+                <li><a href="{{url('activities')}}">活动</a></li>
                 <li>
                     <form action="" class="navbar-form navbar-left" >
                         <div class="input-group search-input">

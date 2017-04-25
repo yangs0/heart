@@ -31,7 +31,7 @@
                             <li class="list-group-item">
                                 <span class="at-time" title="{{route('topic.show', $topic->id)}}">{{$topic->created_at->diffForHumans()}}</span>
                                 <h5 class="list-group-item-heading">
-                                    <a href="#">{{$topic->title}}</a>
+                                    <a href="{{route('topic.show',$topic->id)}}">{{$topic->title}}</a>
                                 </h5>
                             </li>
                         @endforeach

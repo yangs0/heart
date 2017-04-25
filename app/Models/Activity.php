@@ -14,4 +14,8 @@ class Activity extends Model
     {
         return $this->morphMany(Reply::class, 'replable');
     }
+
+    public function getUrl(){
+        return route("activities.show", $this->id);
+    }
 }

@@ -21,7 +21,7 @@
                             <select class="selectpicker form-control" required="require" name="type">
                                 <option value="" disabled="" selected="">请选择分类</option>
                                 <option value="original">原创</option>
-                                <option value="question">提问</option>
+                              {{--  <option value="question">提问</option>--}}
                                 <option value="reprint">转载</option>
                                 <option value="video">视频</option>
                             </select>
@@ -223,13 +223,13 @@
             select_type.bind("change", function () {
                 var type_v = select_type.val();
                 switch (type_v){
-                    case 'question':
+                   /* case 'question':
                         source.hide(500);
                         img.hide(500);
                         summary.hide(500);
                         mditor_t.show(1000);
                         set_validator(M_C_2);
-                        break
+                        break*/
                     case 'reprint':
                          source.show(500);
                          mditor_t.show(1000);

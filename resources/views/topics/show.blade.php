@@ -75,9 +75,9 @@
             </div>
         </div>
         <div class="col-md-4 whitebk" style="margin-left: 20px">
-            <div class="user-options-box col-sm-offset-1 col-sm-10">
+            {{--<div class="user-options-box col-sm-offset-1 col-sm-10">
                 <button class="btn btn-block btn-grey" id="collect">收藏文章</button>
-            </div>
+            </div>--}}
 
             @include('topics.partials.author')
 
@@ -85,7 +85,7 @@
                 <h5>您可能感兴趣的文章</h5>
                 <ul class="more-posts-list">
                     @foreach($mayCareTopics as $topic)
-                        <li class="item"><a href="#">东方富海 · 陈玮：从业17年来，判断项目我会用的9种尽调方法和5类数</a></li>
+                        <li class="item"><a href="{{route('topic.show', $topic->id)}}">{{$topic->title}}</a></li>
                     @endforeach
                 </ul>
             </div>

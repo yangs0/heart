@@ -23,7 +23,7 @@
 
             <div class="panel panel-default art-box">
                 <div class="panel-heading">
-                    最近文章
+                    最近点赞
                 </div>
 
                 @if($topics->count())
@@ -35,9 +35,9 @@
                                     <a href="#">{{$topic->title}}</a>
                                 </h5>
                                 <span class="meta">
-                                    <a href="#" title="教程"> 教程 </a>
-                                    <span> ⋅ </span>144 点赞
-                                    <span> ⋅ </span>43 回复
+                                    <a href="#" title="{{trans("topic.".$topic->type)}} "> {{trans("topic.".$topic->type)}} </a>
+                                    <span> ⋅ </span>{{$topic->vote_count}} 点赞
+                                    <span> ⋅ </span>{{$topic->reply_count}} 回复
                                 </span>
                             </li>
                         @endforeach

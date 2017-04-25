@@ -24,4 +24,8 @@ class Reply extends Model
     {
         return $this->morphTo();
     }
+
+    public function getRecentComment($id, $limit=8){
+        return $this->newQuery()->where('user_id', $id)->paginate($limit);
+    }
 }

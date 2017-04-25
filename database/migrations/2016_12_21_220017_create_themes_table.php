@@ -18,7 +18,7 @@ class CreateThemesTable extends Migration
             $table->string('name',10)->unique();
             $table->integer('topics_count')->unsigned()->default(0);
             $table->integer('focus_count')->unsigned()->default(0);
-            $table->string('cover')->default('/images/default.jpg');
+            $table->string('cover')->default('/uploads/images/default.jpg');
             $table->string('color')->default('#5C93B0');
             $table->string('intro');
 

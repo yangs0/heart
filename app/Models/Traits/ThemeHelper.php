@@ -20,7 +20,7 @@ trait ThemeHelper{
                 return $query->select('id', 'title')->take(100);
         }])->withoutBanned()->orderBy('focus_count', 'desc')->select('id','name', 'focus_count')->paginate($themeLimit);
    */
-        return $this->withoutBanned()->orderBy('focus_count', 'desc')->select('id','name', 'intro','focus_count')->get()
+        return $this->withoutBanned()->orderBy('focus_count', 'desc')->select('id','name', 'intro','focus_count','cover')->get()
             ->map(function ($theme) use ($topicLimit){
                 $theme->topics = Topic::where('theme_id',$theme->id)->take($topicLimit)->select('id','title')->get();
                 return $theme;

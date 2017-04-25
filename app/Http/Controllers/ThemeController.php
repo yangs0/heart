@@ -23,14 +23,36 @@ class ThemeController extends Controller
         return view('themes.index', compact('themes', 'hotThemes'));
     }
 
-    public function show($id,$filter = 'default'){
+    public function show($id){
         $theme = Theme::findOrFail($id);
 
-        $topic = app('App\Models\Topic');
+        $topic = app(Topic::class);
         $recommend = $topic->fetchThemeTopicesWithFilter($theme->id,'excellent',3);
         $newTopics = $topic->fetchThemeTopicesWithFilter($theme->id,'default',5);
-        $topics = $topic->getThemeTopicsWithFilter($theme->id, 'noreply', 3);
-        return view('themes.show2',compact('theme', 'recommend', 'topics', 'newTopics'));
+        $topics = $topic->fetchThemeTopicesWithFilter($theme->id, 'reply', 5);
+        $celebritiesAll = Topic::where('theme_id',1)->groupBy('user_id')->orderBy('user_count', 'desc')->with('user')
+            ->select(\DB::raw('count(*) as user_count, user_id'))->get()->pluck('user');
+        return view('themes.show',compact('theme', 'recommend', 'topics', 'newTopics','celebritiesAll'));
+    }
+
+    public function show_topic($id){
+        $theme = Theme::findOrFail($id);
+
+        $topic = app(Topic::class);
+        $topics = $topic->getThemeTopicsWithFilter($theme->id, 'topic-recent', 6);
+        $hotTopics = $topic->fetchThemeTopicesWithFilter($theme->id, 'topic-reply', 6);
+        dump($hotTopics);
+        return view('themes.show_topic',compact('theme',  'topics','hotTopics'));
+    }
+
+    public function show_video($id){
+        $theme = Theme::findOrFail($id);
+
+        $topic = app(Topic::class);
+        $topics = $topic->getThemeTopicsWithFilter($theme->id, 'topic-video', 15);
+        $videos = $topics->splice(3);
+        $topVideos = $topics;
+        return view('themes.show_video',compact('theme', 'videos', 'topVideos'));
     }
 
     public function fetch_theme(Request $request){

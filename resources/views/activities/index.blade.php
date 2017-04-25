@@ -15,7 +15,7 @@
             <div class="col-sm-4 projects-card">
                 <div class="thumbnail">
                     <a class="no-pjax" href="#" >
-                        <img src="./img/b0.jpg">
+                        <img src="/uploads/images/5879cfe6c4f24.jpg">
                     </a>
                     <div class="caption album-text">
                         <h3>
@@ -38,7 +38,7 @@
             <div class="col-sm-4 projects-card">
                 <div class="thumbnail">
                     <a class="no-pjax" href="#" >
-                        <img src="./img/b0.jpg">
+                        <img src="/uploads/images/5879cfe6c4f24.jpg">
                     </a>
                     <div class="caption album-text">
                         <h3>
@@ -60,7 +60,7 @@
             <div class="col-sm-4 projects-card">
                 <div class="thumbnail">
                     <a class="no-pjax" href="#" >
-                        <img src="./img/b0.jpg">
+                        <img src="/uploads/images/5879cfe6c4f24.jpg">
                     </a>
                     <div class="caption album-text">
                         <h3>

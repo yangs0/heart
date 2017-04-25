@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-    <div class="carousel slide" id="carousel">
+    <div class="carousel slide" id="carousel"  data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carousel" data-slide-to="0" class="active"></li>
             <li data-target="#carousel" data-slide-to="1"></li>
@@ -13,25 +13,26 @@
             <div class="item">
                 <img src="/uploads/banner/1481865834039_39.jpg" alt=""/>
             </div>
+
         </div>
 
         <div class="maintext">
             <div class="maintoptext">
                 <div class="mhtitle">
                     <i class="fa fa-bullhorn"></i>
-                    <em>知识库广播</em>
+                    <em>新鲜事儿</em>
                 </div>
                 <ul class="ultext">
                     <li>
                         <a href="#" target="_blank">
                             <i class="fa fa-angle-right"></i>
-                            原创图谱：程序员牛逼指南
+                            原创：程序员牛逼指南
                         </a>
                     </li>
                     <li>
                         <a href="#" target="_blank">
                             <i class="fa fa-angle-right"></i>
-                            特邀编辑征集令
+                            “遇见未来·时空引力场”
                         </a>
                     </li>
                 </ul>
@@ -41,15 +42,15 @@
                     <i class="fa fa-ravelry"></i>
                     <em>快速入口</em>
                 </div>
-                <p>
-                    <a href="http://lib.csdn.net/my/structure" target="_blank">我的图谱</a>
-                    <a href="http://lib.csdn.net/my/handbook" target="_blank">图鉴墙</a>
-                    <a href="http://lib.csdn.net/weekly/history/list" target="_blank">精选周报</a>
+                <p class="site">
+                    <a href="http://lib.csdn.net/my/structure" target="_blank">校园区</a>
+                    <a href="http://lib.csdn.net/my/handbook" target="_blank">活动区</a>
+                    <a href="http://lib.csdn.net/weekly/history/list" target="_blank">交流区</a>
                 </p>
                 <div class="botext">
-                    <p>知识库的进步需要你的支持</p>
-                    <a class="btn btn-warning" href="http://lib.csdn.net/assemble" target="_blank">参加建库</a>
-                    <a class="btn btn-primary" href="http://lib.csdn.net/submit" target="_blank">提交干货</a>
+                    <p>社区的进步需要你的支持</p>
+                    <a class="btn btn-warning" href="http://lib.csdn.net/assemble" >登录</a>
+                    <a class="btn btn-primary" href="http://lib.csdn.net/submit">注册</a>
                 </div>
             </div>
         </div>
@@ -61,35 +62,53 @@
         <div class="container">
             <ul class="list-group theme-list">
                 <li class="list-group-item col-md-2 ">
-                    <div class="pull-left avatar">
-                        <img src="/uploads/avatar/default.jpg" alt="" class="img-circle">
-                    </div>
-                    <div class="theme-about">
-                        <a class="title"> Android知识库 </a>
-                        <div class="about">8个知识库</div>
-                    </div>
+                    <a href="/themes/1">
+                        <div class="pull-left avatar">
+                            <img src="/uploads/images/1231d123123.png" alt="" class="img-circle">
+                        </div>
+                        <div class="theme-about">
+                            <span class="title"> 叽喳校园 </span>
+                            <div class="about">13个话题</div>
+                        </div>
+                    </a>
                 </li>
-                <li class="list-group-item  col-md-2 ">
-                    <div class="pull-left avatar">
-                        <img src="/uploads/avatar/default.jpg" alt="" class="img-circle">
-                    </div>
-                    <div class="theme-about">
-                        <div class="title"> Android知识库 </div>
-                        <div class="about">8个知识库</div>
-                    </div>
+                <li class="list-group-item col-md-2 ">
+                    <a href="/themes/2">
+                        <div class="pull-left avatar">
+                            <img src="/uploads/images/yeqweasdqw.png" alt="" class="img-circle">
+                        </div>
+                        <div class="theme-about">
+                            <span class="title"> 寝室夜话 </span>
+                            <div class="about">7个话题</div>
+                        </div>
+                    </a>
                 </li>
-                <li class="list-group-item  col-md-2 ">
-                    <div class="pull-left avatar">
-                        <img src="/uploads/avatar/default.jpg" alt="" class="img-circle">
-                    </div>
-                    <div class="theme-about">
-                        <div class="title"> Android知识库 </div>
-                        <div class="about">8个知识库</div>
-                    </div>
+                <li class="list-group-item col-md-2 ">
+                    <a href="/themes/3">
+                        <div class="pull-left avatar">
+                            <img src="/uploads/images/83Q58PICba.jpg" alt="" class="img-circle">
+                        </div>
+                        <div class="theme-about">
+                            <span class="title"> 社会纵横 </span>
+                            <div class="about">6个话题</div>
+                        </div>
+                    </a>
                 </li>
+                <li class="list-group-item col-md-2 ">
+                    <a href="/themes/4">
+                        <div class="pull-left avatar">
+                            <img src="/uploads/images/87m58PICt.jpg" alt="" class="img-circle">
+                        </div>
+                        <div class="theme-about">
+                            <span class="title"> 毕业情怀 </span>
+                            <div class="about">2个话题</div>
+                        </div>
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
-    @include('pages.partials.themes')
-    @include('pages.partials.range')
+   {{-- @include('pages.partials.themes')
+    @include('pages.partials.range')--}}
 @endsection

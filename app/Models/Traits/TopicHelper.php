@@ -12,7 +12,7 @@ trait TopicHelper{
     public function getTopicShow($id){
         return $this->newQuery()->with([
             'user'=>function($query){
-                $query->select('id','name','intro','topics_count');
+                $query->select('id','name','intro','avatar','topics_count');
             },
             'user.topics'=>function($query){
                 $query->orderBy('created_at', 'desc')->take(3);
@@ -38,7 +38,7 @@ trait TopicHelper{
             ->with('user','theme')   //这边就不进行字段限制了。
             ->paginate($limit);
     }
-    public function getThemeTopicsWithFilterByType($themeId, $type, $filter, $limit){
+    /*public function getThemeTopicsWithFilterByType($themeId, $type, $filter, $limit){
         $filter = $this->getTopicFilter($filter);
 
         return $this->applyFilter($filter)
@@ -46,12 +46,12 @@ trait TopicHelper{
             ->where("type", $type)
             ->with('user','theme')   //这边就不进行字段限制了。
             ->paginate($limit);
-    }
+    }*/
 
     public function fetchThemeTopicesWithFilter($themeId, $filter, $limit){
         return $this->applyFilter($filter)
             ->where("theme_id", $themeId)
-            ->select('id','title','figure')
+        /*    ->select('id','title','figure','crea')*/
             ->take($limit)->get();
     }
 
@@ -70,4 +70,7 @@ trait TopicHelper{
             ->select('id','title','type','vote_count','reply_count', 'created_at')
             ->paginate($limit);
     }
+
+
+
 }

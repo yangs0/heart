@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique()->index();
             $table->string('password');
-            $table->string('avatar')->default('/uploads/avatar/default.jpg');
+            $table->string('avatar')->default('/uploads/avatars/default.jpg');
 
             $table->integer('reply_count')->default(0);
             $table->integer('follower_count')->default(0);
@@ -29,9 +29,9 @@ class CreateUsersTable extends Migration
             //$table->string('title')->default('');  称号暂时跳过
             $table->string('intro')->default('');
             $table->enum('sex', ['boy',  'girl'])->default('boy');
-            $table->enum('is_banned', ['yes',  'no'])->default('no')->index();
-            $table->enum('is_active', ['yes',  'no'])->default('no')->index();
-            $table->enum('is_admin', ['yes',  'no'])->default('no')->index();
+            $table->enum('is_banned', ['yes','no'])->default('no')->index();
+            $table->enum('is_active', ['yes','no'])->default('no')->index();
+            $table->enum('is_admin', ['yes','no'])->default('no')->index();
             $table->string('verification_token')->nullable();
 
 

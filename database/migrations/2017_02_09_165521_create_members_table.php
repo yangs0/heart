@@ -16,7 +16,8 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->index();
-            $table->integer("dorm_id")->index();
+            $table->integer("activity_id")->index();
+            $table->enum('is_banned', ['yes','no'])->default('no')->index();
             //$table->enum("role",['owner', 'classmates', 'others'])->index();
         });
     }

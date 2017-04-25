@@ -25,10 +25,10 @@ class DormController extends Controller
     }
 
     public function show($id){
-        $dorm = Dorm::with('members')->findOrFail($id);
-        $members = $dorm->members;
+       /* $dorm = Dorm::with('members')->findOrFail($id);
+        $members = $dorm->members;*/
 
-        $messages = ChatMsg::where('dorm_id', $dorm->id)->get();
+        //$messages = ChatMsg::where('dorm_id', $dorm->id)->get();
         return view('dorms.show',compact('dorm','members', 'messages'));
     }
 

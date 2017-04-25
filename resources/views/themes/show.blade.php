@@ -3,89 +3,93 @@
 @section('content')
     @include('themes.partials.banner')
     <div class="container">
-        <div class="col-sm-8">
+        <div class="col-sm-9">
+            <div class="whitebk setborder">
+                <div class="theme-info-box">
+                    <div class="media">
+                        <a class="pull-left" href="#">
+                            <img class="media-object img" src="{{$theme->cover}}"
+                                 alt="...">
+                        </a>
+                        <div class="media-body content">
+                            <h4 class="media-heading">{{$theme->name}}</h4>
+                            {{$theme->intro}}
+                        </div>
+                    </div>
+                </div>
+                <div class="theme-info-ext">
+                    <div class="relevant-posts">
+                        <h5>编辑推荐</h5>
+                        <div class="post-lists row">
+                            @foreach($recommend as $topic)
+                                <div class="col-sm-6 col-md-4">
+                                    <a class="thumbnail" href="{{route('topic.show', $topic->id)}}">
+                                        <img class="img-show" src="{{$topic->figure}}" alt="..."  >
+                                        <div class="caption">
+                                            <p>{{$topic->title}}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="topics-list-box whitebk setborder">
+
+            <div class="topics-list-box whitebk setborder other">
                 <div class="topics-list-header">
-                    <h4 class="title">相关推荐</h4>
+                    <h4 class="title">热门推荐</h4>
                 </div>
                 @include('topics.partials.list')
             </div>
-
-            <div class="whitebk setborder other">
-
-            </div>
         </div>
 
-        <div class="col-md-4 hidden-sm">
-
-
-            <div class="whitebk setborder row">
-                <div class="sidebar-item">本月热门文章</div>
-                <ul class="favorite-list">
-                    <li>
-                        <h3>
-                            <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
-                        </h3>
-                        <span class="favorite-info">
-                            <span class="favorite-info-time pull-right">02-23 09:36</span>
-                            <span style="padding-left:20px;"></span>
-                            <a class="overdot inb" href="/u578991?from=exp_sidebar">造梦者影视工作室</a>
-                            <a class="user-v-p-14 inb icon-user-v" href="http://www.xinpianchang.com/user/userverify/ts-intro?from=exp_sidebar" target="_blank" title="认证用户"></a>
-                        </span>
-                    </li>
-                    <li>
-                        <h3>
-                            <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
-                        </h3>
-                        <span class="favorite-info">
-                            <span class="favorite-info-time pull-right">02-23 09:36</span>
-                            <span style="padding-left:20px;"></span>
-                            <a class="overdot inb" href="/u578991?from=exp_sidebar">造梦者影视工作室</a>
-                            <a class="user-v-p-14 inb icon-user-v" href="http://www.xinpianchang.com/user/userverify/ts-intro?from=exp_sidebar" target="_blank" title="认证用户"></a>
-                        </span>
-                    </li>
-                    <li>
-                        <h3>
-                            <a class="overdot inb" href="#" title="淄博日升百货精英齐聚 腾飞2017"><i class="fa fa-fire"></i>淄博日升百货精英齐聚 腾飞2017</a>
-                        </h3>
-                        <span class="favorite-info">
-                            <span class="favorite-info-time pull-right">02-23 09:36</span>
-                            <span style="padding-left:20px;"></span>
-                            <a class="overdot inb" href="/u578991?from=exp_sidebar">造梦者影视工作室</a>
-                            <a class="user-v-p-14 inb icon-user-v" href="http://www.xinpianchang.com/user/userverify/ts-intro?from=exp_sidebar" target="_blank" title="认证用户"></a>
-                        </span>
-                    </li>
-                </ul>
+        <div class="col-md-3 hidden-sm">
+            <div class="whitebk setborder" style="position: relative">
+                <div class="pro-themes">
+                    <div class="rhtitle">新鲜事儿</div>
+                    <div class="content">
+                        @foreach($newTopics as $topic)
+                            <a href="#" target="">
+                                <p class="ptext">{{$topic->title}}</p>
+                            </a>
+                            @endforeach
+                    </div>
+                    <div class="yellowarro"></div>
+                </div>
+                <span class="smart"></span>
             </div>
 
-            <div class="whitebk setborder other row">
-                <h4 class="post-right-title">精彩点评</h4>
-                <ul class="ori-list">
-                    <li id="c_337864">
-                        <a class="ori-title" href="/51095?from=index_comment" title="干货 | 北野武惯用的电影技巧，你值得一看" _hover-ignore="1">干货 | 北野武惯用的电影技巧，你值得一看</a>
-                        <a class="en-wrap ori-intro" href="/51095?from=index_comment" _hover-ignore="1">
-                            喜欢他的《那年夏天宁静的海》，里面有大量的长镜头和由点到面的镜头表达，看多了好莱坞电影，属于东方文化的那种暗流涌动的情感表达都被忽视了，谢谢北野武拍出具有东方美学的电影
-                            <span></span>
-                        </a>
-                        <div class="ori-user">
-                            <a class="name odt" href="/personal/1249255?from=index_comment">BeautifulOnes</a>
-                            评论于 今天 18:53
-                        </div>
-                    </li>
-                    <li id="c_337864">
-                        <a class="ori-title" href="/51095?from=index_comment" title="干货 | 北野武惯用的电影技巧，你值得一看" _hover-ignore="1">干货 | 北野武惯用的电影技巧，你值得一看</a>
-                        <a class="en-wrap ori-intro" href="/51095?from=index_comment" _hover-ignore="1">
-                            喜欢他的《那年夏天宁静的海》，里面有大量的长镜头和由点到面的镜头表达，看多了好莱坞电影，属于东方文化的那种暗流涌动的情感表达都被忽视了，谢谢北野武拍出具有东方美学的电影
-                            <span></span>
-                        </a>
-                        <div class="ori-user">
-                            <a class="name odt" href="/personal/1249255?from=index_comment">BeautifulOnes</a>
-                            评论于 今天 18:53
-                        </div>
-                    </li>
-                </ul>
+            <div class="whitebk setborder other">
+                <div class="drygoods">
+                    <div class="title">征集干货</div>
+                    <div class="content">
+                        <p>把你认为靠谱的站内外文章提交给本知识库吧。帮助大家，多多益善！</p>
+                        <a class="drybtn" href="http://lib.csdn.net/submit/git/base" target="_blank">我要提交干货</a>
+                        <span>
+                        <i class="fa fa-user"></i>
+                        已有 {{$celebritiesAll->count()}} 人为本库贡献了干货
+                    </span>
+                        <!-- <em>最新贡献者：</em>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="whitebk setborder other">
+                <div class="relative-themes">
+                    <div class="title">
+                        <span style="cursor: default;font-weight: 700;">名人榜</span>
+
+                    </div>
+                    <div class="more-list">
+                        @include('themes.partials.celebrity')
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script>
+
+    </script>
 @endsection

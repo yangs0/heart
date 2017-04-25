@@ -45,7 +45,7 @@ class UserController extends Controller
      */
     public function show($id){
        /* $user = app('App\Repositories\UserRepository')->getUserInfo($id);
-        $recentTopic = app('App\Repositories\TopicRepositories')->fetchTopicsWithFilterByUserId($id, 5)->take(5)->get();
+          $recentTopic = app('App\Repositories\TopicRepositories')->fetchTopicsWithFilterByUserId($id, 5)->take(5)->get();
         */
         $user = User::findOrFail($id);
         $topics = app('App\Models\Topic')->fetchUserTopicWithFilter($id,'default', 8);
@@ -71,12 +71,9 @@ class UserController extends Controller
      */
 
     public function showComment($id){
-        /* $user = app('App\Repositories\UserRepository')->getUserInfo($id);
-         $recentTopic = app('App\Repositories\TopicRepositories')->fetchTopicsWithFilterByUserId($id, 5)->take(5)->get();
-         */
         $user = User::findOrFail($id);
-
-        return view('user.show_comment', compact('user', 'topics'));
+        $replies = app(Reply::class)->getRecentComment($id,8);
+        return view('user.show_comment', compact('user', 'replies'));
     }
     /**
      * 用户最近操作显示（未完成）  -----需要优化啊

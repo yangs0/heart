@@ -31,7 +31,7 @@ class CreateTopicsTable extends Migration
             $table->string('sourceUrl')->nullable();
 
             /* $table->boolean('validation')->default(false);*/
-            $table->string('figure')->nullable()->default('/img/default.jpg');
+            $table->string('figure')->nullable()->default('/uploads/images/default.jpg');
 
             $table->enum('is_excellent', ['yes', 'no'])->default('no');
             $table->enum('is_banned', ['yes', 'no'])->default('no')->index();

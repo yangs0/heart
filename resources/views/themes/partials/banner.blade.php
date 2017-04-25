@@ -14,10 +14,9 @@
         </div>
         <div class="theme-links row">
             <ul class="list-unstyled list-inline">
-                <li class="active">推荐</li>
-                <li >话题</li>
-                <li>问答</li>
-                <li>视频</li>
+                <li class="{{navViewActive('theme.show')}}"><a href="{{route('theme.show',$theme->id)}}">推荐</a></li>
+                <li class="{{navViewActive('theme.show_topic')}}"><a href="{{route('theme.show_topic',$theme->id)}}">话题</a></li>
+                {{--<li class="{{navViewActive('theme.show_video')}}"><a href="{{route('theme.show_video',$theme->id)}}">图片</a></li>--}}
             </ul>
         </div>
     </div>

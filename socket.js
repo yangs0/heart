@@ -16,11 +16,12 @@ redis.on('message',function (channel, message) {
 io.on('disconnect', function(){
     console.log('user disconnected');
 });
-/*io.on('connection', function (socket) {
- socket.on('disconnect', function(){
- console.log('user disconnected');
+io.on('connection', function (socket) {
+    console.log('connected');
+    socket.on('disconnect', function () {
+        console.log('user disconnected');
+    });
  });
- });*/
 
 
 http.listen(3000, function () {
