@@ -9,10 +9,12 @@
 namespace App\Repositories;
 
 
+use App\Models\Notices;
 use App\Models\Theme;
 use App\Models\Topic;
 use Carbon\Carbon;
 use erusev\parsedown\Parse;
+use Illuminate\Support\Facades\Auth;
 
 class TopicCreator{
 
@@ -29,11 +31,13 @@ class TopicCreator{
         $data['resolved_content'] = Parse::text(strip_tags($data['content']));
         $data['summary'] = Topic::makeSummary($data['resolved_content']);
         $topic = Topic::create($data);
-        if (! $topic) {
-            dd($topic->getErrors());
-        }
-        Auth::user()->increment('topic_count', 1);
 
+        Notices::createNoticeToFollowers(Auth::user(),[
+            'formId'=>Auth::id(),
+            'type'=>'topic',
+            "line_id"=>$topic->id
+        ]);
+        Auth::user()->increment('topic_count', 1);
         return route('topic.show',$topic->id); //就返回路径吧
     }
 

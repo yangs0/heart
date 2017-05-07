@@ -220,9 +220,11 @@
 				showCategory(defCategory);
 				showCatPage(0);
 			});
+			/*top : offset.top + $that.outerHeight() + 5,
+			 left : offset.left*/
 			$('#sinaEmotion').css({
-				top : offset.top + $that.outerHeight() + 5,
-				left : offset.left
+				top : offset.top - 211,
+				left : offset.left -100
 			}).show();
 		}
 

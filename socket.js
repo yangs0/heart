@@ -11,7 +11,7 @@ redis.subscribe('chatRoom');
 redis.on('message',function (channel, message) {
     console.log(message);
     message = JSON.parse(message);
-    io.emit("test-channel:a", message.data);//channel+ ':' + message.event
+    io.emit(message.event, message.data);//channel+ ':' + message.event
 });
 io.on('disconnect', function(){
     console.log('user disconnected');

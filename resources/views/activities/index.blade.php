@@ -7,78 +7,43 @@
 
     <div class="container">
         <div class="order-button row">
-            <a href="{{url('/theme')}}" class="active">全部活动</a>
-            <a href="{{url('/theme')}}" class="">正在进行</a>
-            <a href="{{url('/theme')}}" class="">往期活动</a>
+            <a href="{{route('activities.display','all')}}" class="{{navViewActiveByParams('activities.display', 'all')}}">全部活动</a>
+            <a href="{{route('activities.display','ing')}}" class="{{navViewActiveByParams('activities.display', 'ing')}}">正在进行</a>
+            <a href="{{route('activities.display','ed')}}" class="{{navViewActiveByParams('activities.display', 'ed')}}">往期活动</a>
         </div>
         <div class="">
-            <div class="col-sm-4 projects-card">
-                <div class="thumbnail">
-                    <a class="no-pjax" href="#" >
-                        <img src="/uploads/images/5879cfe6c4f24.jpg">
-                    </a>
-                    <div class="caption album-text">
-                        <h3>
-                            <a href="/activity/169?from=activity_all" title="Addicted丨New·夜新媒体影像颁奖盛典" target="_blank" _hover-ignore="1">Addicted丨New·夜新媒体影像颁奖盛典</a>
-                            <span class="mark mark-activity-3">已结束</span>
-                        </h3>
-                        <div class="activity-time odt" title="活动时间：2017年1月13日">
-                            <i class="fa fa-clock-o"></i>
-                            活动时间：2017年1月13日
-                        </div>
-                        <div class="activity-address odt" title="雍和宫糖果星光现场">
-                            <i class="fa fa-map-marker"></i>
-                            雍和宫糖果星光现场
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-sm-4 projects-card">
-                <div class="thumbnail">
-                    <a class="no-pjax" href="#" >
-                        <img src="/uploads/images/5879cfe6c4f24.jpg">
-                    </a>
-                    <div class="caption album-text">
-                        <h3>
-                            <a href="/activity/169?from=activity_all" title="Addicted丨New·夜新媒体影像颁奖盛典" target="_blank" _hover-ignore="1">Addicted丨New·夜新媒体影像颁奖盛典</a>
-                            <span class="mark mark-activity-3">已结束</span>
-                        </h3>
-                        <div class="activity-time odt" title="活动时间：2017年1月13日">
-                            <i class="fa fa-clock-o"></i>
-                            活动时间：2017年1月13日
-                        </div>
-                        <div class="activity-address odt" title="雍和宫糖果星光现场">
-                            <i class="fa fa-map-marker"></i>
-                            雍和宫糖果星光现场
+            @foreach($activities as $activity)
+                <div class="col-sm-4 projects-card">
+                    <div class="thumbnail">
+                        <a class="no-pjax" href="{{route("activities.show", $activity->id)}}" >
+                            <img src="{{$activity->cover}}">
+                        </a>
+                        <div class="caption album-text">
+                            <h3>
+                                <a href="{{route("activities.show", $activity->id)}}" title="{{$activity->title}}">{{$activity->title}}</a>
+                            <!--{{$now = \Carbon\Carbon::now()}}-->
+                                @if($activity->start->gt($now))
+                                    <span class="mark mark-activity-1">未开始</span>
+                                @elseif($activity->start->lt($now) && $activity->end->gt($now) )
+                                    <span class="mark mark-activity-0">进行中</span>
+                                    @else
+                                    <span class="mark mark-activity-3">已结束</span>
+                                @endif
+                            </h3>
+                            <div class="activity-time odt" title="活动时间：2017年1月13日">
+                                <i class="fa fa-clock-o"></i>
+                                活动时间：{{$activity->start->toDateString()}} | {{$activity->end->toDateString()}}
+                            </div>
+                            <div class="activity-address odt" title="雍和宫糖果星光现场">
+                                <i class="fa fa-map-marker"></i>
+                                {{$activity->place}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                @endforeach
 
-            <div class="col-sm-4 projects-card">
-                <div class="thumbnail">
-                    <a class="no-pjax" href="#" >
-                        <img src="/uploads/images/5879cfe6c4f24.jpg">
-                    </a>
-                    <div class="caption album-text">
-                        <h3>
-                            <a href="/activity/169?from=activity_all" title="Addicted丨New·夜新媒体影像颁奖盛典" target="_blank" _hover-ignore="1">Addicted丨New·夜新媒体影像颁奖盛典</a>
-                            <span class="mark mark-activity-3">已结束</span>
-                        </h3>
-                        <div class="activity-time odt" title="活动时间：2017年1月13日">
-                            <i class="fa fa-clock-o"></i>
-                            活动时间：2017年1月13日
-                        </div>
-                        <div class="activity-address odt" title="雍和宫糖果星光现场">
-                            <i class="fa fa-map-marker"></i>
-                            雍和宫糖果星光现场
-                        </div>
-                    </div>
-                </div>
 
-            </div>
         </div>
     </div>
 @endsection

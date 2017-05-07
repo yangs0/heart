@@ -12,8 +12,7 @@ use App\Models\Topic;
 
 trait VoteTraits
 {
-    public function vote($topic)
-    {
+    public function vote($topic){
         if (!is_array($topic)) {
             $topic = compact('topic');
         }
@@ -32,6 +31,7 @@ trait VoteTraits
     public function isVoting($topic){
         return $this->votings->contains($topic);
     }
+
 
     public function votings(){
         return $this->belongsToMany(Topic::class, 'votes', 'user_id', 'topic_id');

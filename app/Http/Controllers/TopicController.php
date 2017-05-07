@@ -152,10 +152,11 @@ class TopicController extends Controller
         } else {
             \Auth::user()->vote($id);
         }
-        dd("ok");
+
+        return response()->json(['status'=>'200','data'=>[], 'msg'=>'success']);
         //return redirect(route('themes.show', $id));
         //return response(['status' => 200]);
-       // return response()->json(['status'=>'200','data'=>[], 'msg'=>$msg]);
+       //
     }
 
 

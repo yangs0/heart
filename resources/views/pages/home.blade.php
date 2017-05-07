@@ -105,10 +105,10 @@
                         </div>
                     </a>
                 </li>
-
             </ul>
         </div>
     </div>
-   {{-- @include('pages.partials.themes')
+    @include('pages.partials.content')
+   {{--@include('pages.partials.themes')
     @include('pages.partials.range')--}}
 @endsection

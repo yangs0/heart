@@ -19,7 +19,8 @@ class CreateActivitiesTable extends Migration
             $table->text('content')->comment('活动内容');
             $table->text('resolved_content')->comment('MD处理的活动内容');
             $table->string('intro')->comment('活动简单介绍');
-            $table->string('date')->comment('活动日期');
+            $table->string('start')->comment('起始时间');
+            $table->string('end')->comment('截止时间');
             $table->string('place')->comment('活动地点');
             $table->string('cover')->nullable()->comment('封面');
             $table->enum('is_banned',['yes','no'])->default('no')->comment('禁止');

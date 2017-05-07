@@ -66,26 +66,44 @@
     @endif
 
     @if(Auth::check() && Auth::id() != $user->id)
+        <a class="btn btn-default btn-block" data-type="POST" href="javascript:void(0);" onclick="letter()" >
+            <i class="fa fa-send-o"></i> 发送私信
+        </a>
     <!--{{$isFollowing= Auth::user()->isFollowing($user->id) ? true : false}}-->
         <a class="btn btn-{{ !$isFollowing ? 'warning' : 'danger' }} btn-block" data-type="POST" href="javascript:void(0);" data-url="{{ route('users.doFollow', $user->id) }}" id="follow">
             <i class="fa {{!$isFollowing ? 'fa-plus' : 'fa-minus'}}"></i> {{ !$isFollowing ? '关注用户' : '取消关注' }}
         </a>
+
+        @include('user.partials.send_letter',['user'=>$user])
     @endif
 </div>
 @section('script')
     @parent
+    @if(Auth::check() && Auth::id() != $user->id)
     <script>
+        var isFollow = "{{$isFollowing}}";
         $("#follow").bind('click', function () {
+
             $.ajax({
                 type: $(this).data('type'),
                 url: $(this).data('url'),
                 headers: {
                     'X-CSRF-TOKEN': Config.token
                 },
+                //async: false,
                 data: {},
                 dataType: "json",
                 success: function(data){
-                    console.log(data);
+                    if (isFollow){
+                        $("#follow").removeClass("btn-danger").addClass("btn-warning");
+                        $("#follow").html('<i class="fa fa-plus"></i> 关注用户');
+                        isFollow= 0
+                    }else{
+                        $("#follow").removeClass("btn-danger").addClass("btn-danger");
+                        $("#follow").html('<i class="fa fa-minus"></i> 取消关注')
+                        isFollow=1
+                    }
+
                 },
                 error:function (xhr,data) {
                     if (xhr.status == 401){
@@ -95,4 +113,5 @@
             });
         });
     </script>
+    @endif
 @stop

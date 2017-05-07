@@ -35,8 +35,8 @@
                 <img class="media-object img-thumbnail" src="/uploads/avatars/default.jpg"
                      alt="...">
             </a>
-            <div class="media-body com-text">
-                <textarea name="content" id="content" data-type="{{$info['type']}}" data-url="{{route('replies.store')}}" data-id="{{$info['id']}}" rows="3"  class="form-control" ></textarea>
+            <div class="media-body com-text commonArea">
+                <textarea placeholder="" name="content" id="content" data-type="{{$info['type']}}" data-url="{{route('replies.store')}}" data-id="{{$info['id']}}" rows="3"  class="form-control" style="resize: none;"></textarea>
                 <div class="media-bottom reply-btn">
                     <a class="sbtn btn face"><i class="fa fa-drupal"></i></a>
                     <button class="btn btn-info send"><i class="fa fa-send"></i> 发表点评</button>
@@ -108,6 +108,14 @@
             });
         </script>
 
+        @else
+        <script>
+            $(function () {
+
+                $(".commonArea #content").attr('disabled',true).attr('placeholder','请先登录账号')
+                $(".commonArea .reply-btn").hide()
+            })
+        </script>
         @endif
 
     @stop

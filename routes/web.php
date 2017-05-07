@@ -30,29 +30,6 @@ Route::get('/themes/{id}/video', 'ThemeController@show_video')->name('theme.show
 Route::post('/topic/{id}/vote', 'TopicController@doVote')->name('topics.doVote');
 Route::resource('topic', 'TopicController', ['only' => ['create', 'show','store','edit']]);  //话题创建/显示/存储/修改
 
-//users.doFollow 用户关注 ，JS等功能尚未实现,, 功能尚未验证
-Route::post('/users/{id}/follow', 'UserController@doFollow')->name('users.doFollow');
-
-//用户第三方登录设置，未完成
-Route::get('/users/{id}/edit_link', 'UserController@editLink')->name('users.edit_link');
-
-//用户修改密码-----------------------(基本完成)
-Route::get('/users/{id}/edit_password', 'UserController@editPwd')->name('users.edit_pwd');
-
-//users.edit. 前端部分验证可行，后台处理------------------(基本完成)。
-//users.show  //基本信息填充好了， 但右侧显示，尚未完成
-//users.update  -----edit相关。
-//×××××××××   尚且欠缺一个图像处理的功能模块 ×××××××××
-Route::resource('users', 'UserController', ['only'=>['edit', 'show','update']]);
-
-
-//showVote 获取的列表不对，，暂时显示效果
-//users.topic  未完成
-//users.comment 未完成
-Route::get('/users/{id}/vote', 'UserController@showVote')->name('users.vote');
-Route::get('/users/{id}/topic', 'UserController@showTopic')->name('users.topic');
-Route::get('/users/{id}/comment', 'UserController@showComment')->name('users.comment');
-
 //评论 --尚未补全
 Route::post('/replies', 'RepliesController@store')->name('replies.store');
 
@@ -63,25 +40,49 @@ Route::post('/api/topic/{id}/vote', "TopicController@doVote");
 
 
 //宿舍部分，尚未完成
+Route::post('/rooms/create/{id}', 'RoomsController@create')->name('rooms.create');
 Route::post('/rooms/chat', 'RoomsController@chat')->name('chat.msg');
-Route::get('/rooms/{id}/require', 'DormController@required');
+//Route::get('/rooms/{id}/require', 'DormController@required');
 
-Route::resource('/rooms', 'RoomsController', ['only'=>['index','edit','show','create','store','update','test']]);
+Route::resource('/rooms', 'RoomsController', ['only'=>['show','test']]);
 
 //活动功能好像还什么都没做呢
+Route::get('/activities/show_{type?}', 'ActivityController@index')->name("activities.display");
+Route::post('/activities/{id}/part', 'ActivityController@doPart')->name('activities.part');
 Route::resource('activities', 'ActivityController', ['only'=>['index','show','create','store']]); //活动
 
-/*
-Route::get('/users/{user}/articles', 'UserController@show_articles')->name('user.article');
-
-Route::resource('themes', 'ThemesController', ['only' => [
-    'index', 'show', 'store'
-]]);
-
-Route::get('/themes/{id}/follow', "ThemesController@doFollow")->name('doFollow');
-
-//Route::get('/theme', 'ThemeController')->name('theme.invoke');
 
 
+/*-------------user private letter------------------*/
 
-Route::post('/api/article/{id}/collect', "ArticleController@doCollect");*/
+Route::get("/users/letter","NoticeController@letter")->name('users.letter');
+Route::post("/users/letter/send","NoticeController@sendLetter")->name('users.letter.send');
+
+Route::get("/users/letter/{id}","NoticeController@letterChat")->name('users.chat');
+Route::get("/users/notice","NoticeController@notice")->name('users.notice');
+Route::post("/users/notice/read","NoticeController@read")->name('users.notice.read');
+
+//users.doFollow 用户关注 ，JS等功能尚未实现,, 功能尚未验证
+Route::post('/users/follow/{id}', 'UserController@doFollow')->name('users.doFollow');
+
+//用户第三方登录设置，未完成
+Route::get('/users/edit_link', 'UserController@editLink')->name('users.edit_link');
+
+//用户修改密码-----------------------(基本完成)
+Route::get('/users/edit_password', 'UserController@editPwd')->name('users.edit_pwd');
+
+//showVote 获取的列表不对，，暂时显示效果
+//users.topic  未完成
+//users.comment 未完成
+Route::get('/users/{id}/vote', 'UserController@showVote')->name('users.vote');
+Route::get('/users/{id}/topic', 'UserController@showTopic')->name('users.topic');
+Route::get('/users/{id}/comment', 'UserController@showComment')->name('users.comment');
+
+//users.edit. 前端部分验证可行，后台处理------------------(基本完成)。
+//users.show  //基本信息填充好了， 但右侧显示，尚未完成
+//users.update  -----edit相关。
+//×××××××××   尚且欠缺一个图像处理的功能模块 ×××××××××
+Route::resource('users', 'UserController', ['only'=>['edit', 'show','update']]);
+
+
+/*---------------------------------------------*/

@@ -29,11 +29,27 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right ">
-                <li><a href="#"><i class="fa fa-bell"></i></a></li>
+
                 @if(\Auth::guest())
                     <li><a href="/login" class="nva-options" ><button class="btn btn-success nav-l-r btn-block" href="/login" ><i class="fa fa-hand-o-right"> </i> 登 录 </button></a></li>
                     <li ><a href="/register" class="nva-options"><button class="btn btn-info nav-l-r btn-block"> Join <i class="fa fa-hand-o-left"> </i></button></a></li>
                 @else
+                    <li>
+                    <!--{{$count_letters= Auth::user()->letters()->where("is_read",'0')->count()}}-->
+                    <!--{{$count_notices = Auth::user()->notices()->where("is_read",'0')->count()}}-->
+                        @if($count_letters)
+                        <a href="{{route('users.letter')}}"><i class="fa fa-bell"></i>
+                            <span class="" style="padding:3px 6px;font-size:3px;border-radius:100%;background-color: #c95865;margin-left: -5px">{{$count_notices+$count_letters}}</span>
+                        </a>
+                            @elseif($count_notices)
+                            <a href="{{route('users.notice')}}"><i class="fa fa-bell"></i>
+                                <span class="" style="padding:3px 6px;font-size:3px;border-radius:100%;background-color: #c95865;margin-left: -5px">{{$count_notices}}</span>
+                            </a>
+                            @else
+                            <a href="{{route('users.letter')}}"><i class="fa fa-bell"></i>
+                            </a>
+                        @endif
+                    </li>
                     <li><img src="{{ empty($avatar = Auth::user()->avatar) ? '/img/a5.jpg':$avatar}}" alt="" class="avatar img-circle"></li>
 
                     <li class="dropdown user-action">

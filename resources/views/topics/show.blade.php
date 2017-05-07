@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="article-foot-tags">
-                        <a href="{{route('theme.show', $topic->theme->id)}}">{{$topic->theme->name}}</a>
+                        {{--<a href="{{route('theme.show', $topic->theme->id)}}">{{$topic->theme->name}}</a>--}}
                     </div>
 
                 </div>
@@ -51,11 +51,13 @@
                             <div class="col-sm-12 text-right">
 
                                 @if(Auth::check())
+
+                                    <!--{{$isVote = \Auth::user()->isVoting($topic->id)}}-->
                                     <a href="javascript:void(0)" data-url="{{route('topics.doVote', $topic->id)}}" data-type="POST" id="vote">
-                                        <i class="fa {{\Auth::user()->isVoting($topic->id)?'fa-heart':'fa-heart-o '}}"></i>
+                                        <i class="fa {{$isVote?'fa-heart':'fa-heart-o '}}"></i>
                                     </a>
                                     @else
-                                    <a href="javascript:void(0)" ><i class="fa fa-heart"></i></a>
+                                    <a href="javascript:void(0)" ><i class="fa fa-heart-o"></i></a>
                                     @endif
                                 <a><i class="fa fa-whatsapp go-comment"></i></a>
                                 <span><b>|</b></span>
@@ -95,7 +97,9 @@
 
 @section('script')
     <script>
+        @if(Auth::check())
 
+         var isVote = "{{$isVote}}";
         $("#vote").bind('click', function () {
             $.ajax({
                 type: $(this).data('type'),
@@ -106,7 +110,14 @@
                 data: {},
                 dataType: "json",
                 success: function(data){
-                    console.log(data);
+                    if (isVote){
+                        $("#vote i").removeClass("fa-heart").addClass("fa-heart-o");
+
+                        isVote= 0
+                    }else{
+                        $("#vote i").removeClass("fa-heart-o").addClass("fa-heart");
+                        isVote=1
+                    }
                 },
                 error:function (xhr,data) {
                     if (xhr.status == 401){
@@ -115,6 +126,8 @@
                 }
             });
         });
+        @endif
+
 
     </script>
     @stop

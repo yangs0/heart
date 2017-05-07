@@ -1,6 +1,7 @@
 @extends('layouts.default')
 @section('styles')
     <link rel="stylesheet" href="/assets/css/bootstrapValidator.css"/>
+    <link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="/assets/css/mditor.css"/>
 @stop
 @section('content')
@@ -47,7 +48,19 @@
                     <div class="f_component form-group" >
                         <p class="f_cTitle fs_cTitle">活动 · 日期</p>
                         <p class="f_cDescribe fs_cDescribe">给活动一个日期，聚集你的小伙伴吧。</p>
-                        <input class="form-control" value="" name="date" type="text" placeholder="如：2017年1月1日 | 2017.01.01-2017.01.02 ">
+                        <div class="input-append date start_datetime col-sm-6" >
+                            <input class="form-control" type="text" value="" name="start" readonly placeholder="起始时间">
+                            <span class="add-on"><i class="icon-remove"></i></span>
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+
+                        <div class="input-append date end_datetime col-sm-6" >
+                            <input class="form-control" type="text" value="" name="end" readonly placeholder="截止时间">
+                            <span class="add-on"><i class="icon-remove"></i></span>
+                            <span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+                        <div class="clearfix"></div>
+                        {{--<input class="form-control" value="" name="date" type="text" placeholder="如：2017年1月1日 | 2017.01.01-2017.01.02 ">--}}
                     </div>
 
                     <div class="f_component form-group">
@@ -69,9 +82,37 @@
 @endsection
 @section('script')
     <script type="text/javascript" src="/assets/js/bootstrapValidator.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="/assets/js/mditor.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            /*$(".form_datetime").datetimepicker({
+                format: "y-M-d hh:ii",
+                autoclose: true,
+                todayBtn: true,
+                startDate: "2013-02-14 10:00",
+                minuteStep: 10
+            });*/
+            var nowData = new Date();
+
+            $(".start_datetime").datetimepicker({
+                format: 'yyyy-mm-dd hh:ii',
+                autoclose: true,
+                todayBtn: true,
+                startDate: nowData,
+                endDate: nowData.getFullYear()+'-'+(nowData.getMonth()+2)+'-'+30,
+                minuteStep: 30,
+                fontAwesome:true
+            }).on('changeDate', function(ev){
+                $(".end_datetime").datetimepicker('setStartDate', formatDateTime(ev.date)).show();
+            });
+            $(".end_datetime").datetimepicker({
+                format: 'yyyy-mm-dd hh:ii',
+                autoclose: true,
+                minuteStep: 30,
+                fontAwesome:true
+            }).hide();
+
             $('#activities').bootstrapValidator({
                 message: 'This value is not valid',
                 /* container: 'tooltip',*/
@@ -108,6 +149,7 @@
                             }
                         }
                     },
+
                     content: {
                         message: 'The type is not valid',
                         validators: {
@@ -117,9 +159,9 @@
                             stringLength: {
                                 min: 15,
                                 message: '这，活动内容有点简陋懒哦！！'
-                            },
+                            }
                         }
-                    },
+                    }
 
                 }
             }).on('success.form.bv', function(e) {
@@ -145,6 +187,17 @@
             fixedHeight:true
         });
 
+        function formatDateTime (date) {
+            var y = date.getFullYear();
+            var m = date.getMonth() + 1;
+            m = m < 10 ? ('0' + m) : m;
+            var d = date.getDate();
+            d = d < 10 ? ('0' + d) : d;
+            var h = date.getHours();
+            var minute = date.getMinutes();
+            minute = minute < 10 ? ('0' + minute) : minute;
+            return y + '-' + m + '-' + d+' '+h+':'+minute;
+        }
         //oMenuIcon.val([1,2]).trigger("change");
     </script>
     @stop

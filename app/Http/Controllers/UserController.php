@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Models\Notices;
 use App\Models\Reply;
 use App\Models\Topic;
 use App\Models\User;
@@ -44,10 +45,16 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id){
-       /* $user = app('App\Repositories\UserRepository')->getUserInfo($id);
-          $recentTopic = app('App\Repositories\TopicRepositories')->fetchTopicsWithFilterByUserId($id, 5)->take(5)->get();
-        */
-        $user = User::findOrFail($id);
+        $user = app('App\Repositories\UserRepository')->getUserInfo($id);
+         // $recentTopic = app('App\Repositories\TopicRepositories')->fetchTopicsWithFilterByUserId($id, 5)->take(5)->get();
+
+       /* $user = User::with([
+            "topics"=>function($query){
+                $query->select('id','title','user_id','theme_id');},
+            "topics.theme"])->select('id','name')->find($id);
+        dump($user->toArray());*/
+
+
         $topics = app('App\Models\Topic')->fetchUserTopicWithFilter($id,'default', 8);
 
         return view('user.show', compact('user', 'topics'));
@@ -93,15 +100,15 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id){
+    public function edit(){
         $user = Auth::user();
         return view('user.edit', compact('user'));
     }
-    public function editLink($id){
+    public function editLink(){
         $user = Auth::user();
         return view('user.edit_link', compact('user'));
     }
-    public function editPwd($id){
+    public function editPwd(){
         $user = Auth::user();
         return view('user.edit_pwd', compact('user'));
     }
@@ -121,11 +128,16 @@ class UserController extends Controller
             Auth::user()->unfollow($id);
         } else {
             Auth::user()->follow($id);
+            Notices::createNotice(Auth::user(),[
+                'user_id'=>$id,
+                'formId'=>Auth::id(),
+                'type'=>'follow',
+                "line_id"=>$id
+            ]);
         }
+        Auth::user()->update(['follower_count' => $user->followers()->count()]);
 
-        $user->update(['follower_count' => $user->followers()->count()]);
-
-        dd("ok");
+        return response()->json(['msg'=>"success"]);
         //return redirect(route('users.show', $id));
     }
 

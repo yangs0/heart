@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\FollowTraits;
+use App\Models\Traits\PartTraits;
 use App\Models\Traits\VoteTraits;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,7 +13,7 @@ use Naux\Mail\SendCloudTemplate;
 class User extends Authenticatable
 {
     use Notifiable;
-    use VoteTraits, FollowTraits;
+    use VoteTraits, FollowTraits, PartTraits;
 
     public $table = "users";
     /**
@@ -40,6 +41,12 @@ class User extends Authenticatable
 
     public function members(){
         return $this->belongsToMany(Dorm::class,'members');
+    }
+    public function letters(){
+        return $this->hasMany(Letter::class,'user');
+    }
+    public function notices(){
+        return $this->hasMany(Notices::class,'user_id');
     }
 
 

@@ -4,18 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ActivityRequest;
 use App\Models\Activity;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
 {
-    public function index(){
-        return view('activities.index');
+    public function index($type = null){
+        if ($type){
+            $activities = app(Activity::class)->getActivityWithFilter($type, 12);
+            return view('activities.index', compact('activities'));
+        }
+        return redirect(route('activities.display', 'all'));
+
     }
 
     public function show($id){
-        $activity =Activity::findOrFail($id);
+        $activity =Activity::with("participants")->findOrFail($id);
+        $participants = $activity->participants;
         $replies = $activity->replies()->with('user')->paginate(6);
-        return view('activities.show', compact('activity', 'replies'));
+        return view('activities.show', compact('activity', 'replies','participants'));
     }
 
     public function create()
@@ -34,6 +42,23 @@ class ActivityController extends Controller
         }
         //dd(Request::isValidFile($data['figure']));
         return redirect(app('App\Repositories\ActivityCreator')->create($data));
-
     }
+
+
+    public function doPart($id)
+    {
+         Activity::findOrFail($id);
+
+        if (Auth::user()->isParting($id)) {
+           // Auth::user()->unPart($id);
+            return response()->json(['status'=>'200','data'=>[], 'msg'=>'亲，您已经报名参加了哦']);
+        } else {
+            Auth::user()->part($id);
+        }
+        //Auth::user()->update(['follower_count' => $user->followers()->count()]);
+
+        return response()->json(['msg'=>"success"]);
+        //return redirect(route('users.show', $id));
+    }
+
 }

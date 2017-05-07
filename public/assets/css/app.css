@@ -7488,6 +7488,12 @@ h3 .mark {
     padding: 0 6px;
     vertical-align: top;
 }
+.mark-activity-0 {
+  background-color: #e74c3c;
+}
+.mark-activity-1, .mark-activity-2 {
+  background-color: #3498db;
+}
 .mark-activity-3 {
     background-color: #ccc;
 }
@@ -7763,7 +7769,7 @@ h3 .mark {
 .projects-card {
     padding-left: 12px;
     padding-right: 12px;
-    height: 350px;
+    height: 250px;
     margin-top: 10px;
 }
 .projects-card .thumbnail {
@@ -9182,11 +9188,16 @@ a.aname{
 }
 .padding-md .list-group-item{
    border: none;
-   letter-spacing: 0.3em;
+   /*letter-spacing: 0.3em;*/
 }
+
 .padding-md .list-group-item.active{
    background-color: #00B5AD;
     border-radius: inherit;
+}
+.list-group-item.media .infos {
+  margin-left: 66px;
+  margin-top: 16px;
 }
 .text-md {
     font-size: 1.2em;
@@ -9693,7 +9704,7 @@ a.aname{
 .bubble-item a{
     cursor: pointer;
 }
-.bubble-item img{
+.bubble-item img.user_face{
     float: left;
     width: 38px;
     height: 38px;
@@ -9702,7 +9713,7 @@ a.aname{
     border-radius:100%;
     margin-left: -60px
 }
-.bubble-item.fr img{
+.bubble-item.fr img.user_face{
     margin-top: -8px;
     float: right;
     width: 38px;
@@ -10183,3 +10194,45 @@ i.form-control-feedback.fa {
   font-size: 16px;
 }
 /*# sourceMappingURL=app.css.map */
+.vote-hint img.emoji{
+  width: 23px;
+}
+.voted-users{
+  margin-top: 15px;
+}
+.notic-li {
+  font-weight: bold;
+  color: #666;
+}
+
+.notic-li a:hover{
+  color: #00B5AD;
+
+}
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-20 {
+ margin-top: 20px;
+}
+.intro.grey{
+  color: #ccc;
+}
+.left-title{
+  border-left: 4px solid rgba(32, 146, 217, 0.29);
+  color: #797979;
+  font-size: 16px;
+  margin-bottom: 15px;
+  padding: 5px 0 5px 18px;
+  text-align: left;
+}
+/*.left-title::after{
+  margin-top: 10px;
+  background: rgba(32, 146, 217, 0.29) none repeat scroll 0 0;
+  border-radius: 3px;
+  content: "";
+  display: block;
+  height: 2px;
+  !* margin-top: 1rem;*!
+  width: 160px;
+}*/

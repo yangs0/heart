@@ -26,7 +26,7 @@
                 </div>
 
                 @if(!$topics->isEmpty())
-                    <ul class="list-group">
+                    <ul class="list-group ">
                         @foreach($topics as $topic)
                             <li class="list-group-item">
                                 <span class="at-time" title="{{route('topic.show', $topic->id)}}">{{$topic->created_at->diffForHumans()}}</span>
@@ -41,6 +41,7 @@
                         <div class="empty-content">暂时还没有内容。。。。</div>
                     </div>
                 @endif
+                @include('user.partials.send_letter')
             </div>
 
             <div class="panel panel-default replies-box">

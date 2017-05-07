@@ -62,7 +62,7 @@
 
                         <div class="form-group">
                             <label for="">主题：</label>
-                            <select class="selectpicker form-control" name="theme" value="">
+                            <select class="selectpicker form-control" name="theme" >
                                 <option value="" disabled="" selected="">请选择分类</option>
                                 <option value="1">招聘</option>
                                 <option value="4">问答</option>
