@@ -17,17 +17,24 @@
                 <form class="form-horizontal" method="POST" action="https://laravel-china.org/users/6180/update_email_notify" accept-charset="UTF-8">
                     <input name="_token" value="CxLyskSjmC1R47eUPMhExadV6tsczUC5vocbV7Dz" type="hidden">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="inputEmail3">注册使用绑定</label>
+                        <label class="col-sm-3 control-label" for="inputEmail3">绑定Github账号</label>
                         <div class="col-sm-9">
-                            <a class="btn btn-info" role="button">
-                                <i class="fa fa-github-alt"></i>
-                                GitHub
-                            </a>
-                            <span class="padding-sm">注册时绑定的账号不允许修改</span>
+                        @if(Auth::user()->socialAccount)
+                            <span style="color:#1E9E8A;">已绑定</span>
+                        @else
+
+
+                                <a class="btn btn-info" role="button" href="/login/github">
+                                    <i class="fa fa-github-alt"></i>
+                                    GitHub
+                                </a>
+                                <span class="padding-sm">点击进行账号绑定</span>
+
+                        @endif
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="inputEmail3">可用的绑定</label>
+                        <label class="col-sm-3 control-label" for="inputEmail3">绑定Github账号</label>
                         <div class="col-sm-9">
                             <a class="btn btn-default login-btn" href="https://laravel-china.org/auth/oauth?driver=wechat">
                                 <i class="fa fa-weixin"></i>

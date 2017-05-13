@@ -5,7 +5,7 @@
                 <a href="#"><img src="{{$theme->cover}}" alt="{{$theme->name}}" ></a>
                 <div class="theme-inform">
                     <div class="theme-name">
-                        <a href="#">{{$theme->name}}</a>
+                        <a href="{{route('theme.show',$theme->id)}}">{{$theme->name}}</a>
                         {{--<span>每周四更新</span>--}}
                     </div>
                     <div class="state">

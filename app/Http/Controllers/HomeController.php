@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
+use App\Models\Notices;
 use App\Models\Theme;
 use App\Repositories\ArticleRepository;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -29,19 +32,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //flash('Welcome Aboard!','danger')->important();
-    /*    $articleModel = app('App\Repositories\ArticleRepository');
-        $articles = $articleModel->getInitArticles(20);
-        $hotArticles = $articleModel->getRecentArticles(5);
-        $themes = app('App\Repositories\ThemeRepository')->getTagsWithFilter('hot',['*'],30);*/
+    public function index(){
+        $users = app('App\Repositories\UserRepository')->getActiveUser();
 
-       /* \DB::enableQueryLog();
+        $themes = app('App\Models\Theme')->orderBy('topics_count')->take(6)->get();
+        $topics = app('App\Models\Topic')->groupBy('theme_id')->orderBy('created_at','desc')->take(6)->get();
+        $hotTopics = app('App\Models\Topic')->with('user')->orderBy('created_at','desc')->orderBy('reply_count','desc')->take(6)->get();
 
-        dd( \DB::getQueryLog());*/
+        $notices = Notices::where('type',['activity','topic'])->with('fromUser')->orderBy('created_at','desc')->get();
 
-        return view('pages.home');
+        $activities =Activity::where('end','>', Carbon::now())->orderBy('created_at','desc')->get();
+
+        return view('pages.home',compact('users','topics','hotTopics', 'notices','activities','themes'));
     }
 
    /* public function explore($filter= 'default'){

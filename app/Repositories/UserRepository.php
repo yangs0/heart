@@ -31,4 +31,9 @@ class UserRepository implements UserResitoryInterfaces
     }
 
 
+    public function getActiveUser(){
+        return $this->user->orderBy('topics_count','desc')->take(6)->get();
+    }
+
+
 }

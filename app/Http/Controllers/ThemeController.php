@@ -41,7 +41,6 @@ class ThemeController extends Controller
         $topic = app(Topic::class);
         $topics = $topic->getThemeTopicsWithFilter($theme->id, 'topic-recent', 6);
         $hotTopics = $topic->fetchThemeTopicesWithFilter($theme->id, 'topic-reply', 6);
-        dump($hotTopics);
         return view('themes.show_topic',compact('theme',  'topics','hotTopics'));
     }
 

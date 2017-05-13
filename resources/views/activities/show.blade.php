@@ -1,5 +1,8 @@
 @extends('layouts.default')
 @section('styles')
+    <meta name="title" content="{{$activity->title}}" />
+    <meta name="description" content="{{$activity->intro}}" />
+    <link href="{{asset('/assets/css/share.min.css')}}" rel="stylesheet">
     <style>
         .s_btn{
             border-color: #00B5AD;
@@ -47,9 +50,12 @@
                             <div class="col-sm-12 text-right">
                                 <a><i class="fa fa-whatsapp go-comment"></i></a>
                                 <span><b>|</b></span>
-                                <a><i class="fa fa-wechat"></i></a>
-                                <a><i class="fa fa-weibo"></i></a>
-                                <a><i class="fa fa-qq"></i></a>
+                                <span data-initialized="true" class="social-share">
+                                    <a href="#" class="icon-wechat fa fa-wechat"></a>
+                                    <a class="icon-weibo fa fa-weibo" href="#"> </a>
+                                    <a href="#" class="icon-qq fa fa-qq"></a>
+                                    <a href="" class="icon-qzone fa fa-star"></a>
+                                </span>
                                 <span><b>|</b></span>
                                 <a><i class="glyphicon glyphicon-open"></i></a>
                             </div>
@@ -138,6 +144,8 @@
 @stop
 
 @section('script')
+    <script type="text/javascript" src="/assets/js/jquery.share.min.js"></script>
+    <script type="text/javascript" src="/assets/js/social-share.min.js"></script>
     <script>
         $("#part").bind('click', function () {
             $.ajax({

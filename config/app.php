@@ -180,7 +180,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+       // Laravel\Socialite\SocialiteServiceProvider::class,
+        Overtrue\LaravelSocialite\ServiceProvider::class,
         //provider
 
 
@@ -233,7 +234,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Parse' => erusev\parsedown\Parse::class,
-
+        //'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Socialite' => Overtrue\LaravelSocialite\Socialite::class,
         //'Translug' => \JellyBool\Translug\TranslugFacade::class,
     ],
 

@@ -61,7 +61,7 @@
                                 <i class="text-md fa fa-user"></i>
                                 个人页面
                             </a>
-                            <a href="{{route('users.edit', Auth::id())}}" class="list-group-item">
+                            <a href="{{route('users.edit')}}" class="list-group-item">
                                 <i class="text-md fa fa-edit"></i>
                                 编辑资料
                             </a>

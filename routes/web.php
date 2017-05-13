@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@index');// 首页
 //用户登录/注册/密码重置
+Route::get("/login/github", 'UserController@socialLogin')->name("login.github");
+Route::get("/login/black/{type}", 'UserController@socialCallBack');
 Auth::routes();
 //帐号激活
 Route::get("/active/verify/{token}/{email}", "UserController@activeUser")->name("email.verify");
@@ -71,6 +73,7 @@ Route::get('/users/edit_link', 'UserController@editLink')->name('users.edit_link
 //用户修改密码-----------------------(基本完成)
 Route::get('/users/edit_password', 'UserController@editPwd')->name('users.edit_pwd');
 
+Route::get('/users/edit', 'UserController@edit')->name('users.edit');
 //showVote 获取的列表不对，，暂时显示效果
 //users.topic  未完成
 //users.comment 未完成
@@ -82,7 +85,11 @@ Route::get('/users/{id}/comment', 'UserController@showComment')->name('users.com
 //users.show  //基本信息填充好了， 但右侧显示，尚未完成
 //users.update  -----edit相关。
 //×××××××××   尚且欠缺一个图像处理的功能模块 ×××××××××
-Route::resource('users', 'UserController', ['only'=>['edit', 'show','update']]);
+
+Route::resource('users', 'UserController', ['only'=>['show','update']]);
 
 
 /*---------------------------------------------*/
+
+
+

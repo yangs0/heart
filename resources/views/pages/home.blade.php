@@ -5,14 +5,19 @@
         <ol class="carousel-indicators">
             <li data-target="#carousel" data-slide-to="0" class="active"></li>
             <li data-target="#carousel" data-slide-to="1"></li>
+            <li data-target="#carousel" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-            <div class="item active">
-                <img src="/uploads/banner/1482808080002_2.jpg" alt=""/>
+            <div class="item active" >
+                <img src="/uploads/banner/home_page01.jpg" alt="" style="width: 100%;height: 100%"/>
+            </div>
+            <div class="item" >
+                <img src="/uploads/banner/home_page02.jpg" alt="" style="width: 100%;height: 100%"/>
             </div>
             <div class="item">
-                <img src="/uploads/banner/1481865834039_39.jpg" alt=""/>
+                <img src="/uploads/banner/home_page03.jpg" alt="" style="width: 100%;height: 100%"/>
             </div>
+
 
         </div>
 
@@ -61,18 +66,21 @@
     <div class="theme-nav">
         <div class="container">
             <ul class="list-group theme-list">
-                <li class="list-group-item col-md-2 ">
-                    <a href="/themes/1">
-                        <div class="pull-left avatar">
-                            <img src="/uploads/images/1231d123123.png" alt="" class="img-circle">
-                        </div>
-                        <div class="theme-about">
-                            <span class="title"> 叽喳校园 </span>
-                            <div class="about">13个话题</div>
-                        </div>
-                    </a>
-                </li>
-                <li class="list-group-item col-md-2 ">
+                @foreach($themes as $theme)
+
+                    <li class="list-group-item col-md-2 ">
+                        <a href="{{route('theme.show', $theme->id)}}">
+                            <div class="pull-left avatar">
+                                <img src="{{$theme->cover}}" alt="" class="img-circle" width="40" height="40">
+                            </div>
+                            <div class="theme-about">
+                                <span class="title"> {{$theme->name}} </span>
+                                <div class="about">{{$theme->topics_count}}个话题</div>
+                            </div>
+                        </a>
+                    </li>
+                    @endforeach
+                {{--<li class="list-group-item col-md-2 ">
                     <a href="/themes/2">
                         <div class="pull-left avatar">
                             <img src="/uploads/images/yeqweasdqw.png" alt="" class="img-circle">
@@ -104,7 +112,7 @@
                             <div class="about">2个话题</div>
                         </div>
                     </a>
-                </li>
+                </li>--}}
             </ul>
         </div>
     </div>

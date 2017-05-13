@@ -40,4 +40,15 @@ return [
         'from' => env('YOUDAO_KEY_FROM'),
     ],
 
+    'github' => [
+        'client_id' => '0dc4b5b1101f5c4b9fe0',
+        'client_secret' => '3b6f13ddc614a7b5630835716a62a02ae035e036',
+        'redirect' => 'http://localhost:8000/login/black/github'
+    ],
+    'weibo' => [
+        'client_id' => "1422586059",
+        'client_secret' => 'ff25f25ca087c6b70f6c1d5311aee0dc',//env('WEIBO_SECRET'),
+        'redirect' => 'http://localhost:8000/login/black/weibo',
+    ],
+
 ];

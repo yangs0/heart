@@ -11,7 +11,9 @@
         "laracasts/flash": "^2.0",
         "erusev/parsedown": "^1.6",
         "jellybool/translug": "^1.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "laravel/socialite": "2.*",
+        "overtrue/laravel-socialite": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

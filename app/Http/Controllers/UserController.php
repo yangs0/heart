@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\Notices;
 use App\Models\Reply;
+use App\Models\Social;
 use App\Models\Topic;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use ClassPreloader\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Overtrue\LaravelSocialite\Socialite;
+
 
 class UserController extends Controller
 {
@@ -146,6 +150,67 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $request->performUpdate($user);
         return redirect()->route('users.show', $id);
+    }
+
+
+    /*public function socialCallBack($type){
+
+        $social_account = Socialite::driver('github')->user();
+
+        dd($social_account);
+        $social__user = Social::where('social_id',$social_account->id)->with('user')->first();
+        if (!Auth::check() && $social__user){
+            Auth::login($social__user->user);
+        }elseif (Auth::check()){
+            $user = Auth::user();
+            Social::firstOrCreate([
+                'user_id'=>$user->id,
+                'social_id'=>$social_account->id,
+                'type'=>$type
+            ]);
+
+            $user->github_name = $social_account->nickname;
+            $user->github_link = $social_account->user['html_url'];
+            $user->save();
+            return redirect('/users/edit_link');
+        }
+        return redirect('/');
+    }
+    public function socialLogin($type){
+        return Socialite::driver($type)->redirect();
+    }*/
+
+    public function socialLogin(){
+        $type = 'github';
+        return Socialite::driver($type)->redirect();
+    }
+
+    public function socialCallBack($type){
+        $type = 'github';
+        $social_account = Socialite::driver($type)->user();
+
+        $social__user = Social::where('social_id',$social_account->id)->with('user')->first();
+        if (!Auth::check() && $social__user){
+            Auth::login($social__user->user);
+        }elseif (Auth::check()){
+            $user = Auth::user();
+            Social::firstOrCreate([
+                'user_id'=>$user->id,
+                'social_id'=>$social_account->id,
+                'type'=>$type
+            ]);
+
+           if ($type == 'weibo'){
+               $user->weibo_name = $social_account->nickname;
+               $user->weibo_link = $social_account->original['html_url'];
+           }else{
+               $user->github_name = $social_account->nickname;
+               $user->github_link = $social_account->original['html_url'];
+           }
+            $user->save();
+            return redirect('/users/edit_link');
+        }
+        return redirect('/');
     }
 
 }

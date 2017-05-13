@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ActivityRequest;
 use App\Models\Activity;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
 {
     public function index($type = null){
+
         if ($type){
+            $proActivity = Activity::where('end', '>', Carbon::now())->orderBy("part_count",'desc')->take(3)->get();
             $activities = app(Activity::class)->getActivityWithFilter($type, 12);
-            return view('activities.index', compact('activities'));
+            return view('activities.index', compact('activities','proActivity'));
         }
         return redirect(route('activities.display', 'all'));
 
@@ -47,7 +50,7 @@ class ActivityController extends Controller
 
     public function doPart($id)
     {
-         Activity::findOrFail($id);
+         $activity = Activity::findOrFail($id);
 
         if (Auth::user()->isParting($id)) {
            // Auth::user()->unPart($id);
@@ -57,6 +60,7 @@ class ActivityController extends Controller
         }
         //Auth::user()->update(['follower_count' => $user->followers()->count()]);
 
+        $activity->increment('part_count');
         return response()->json(['msg'=>"success"]);
         //return redirect(route('users.show', $id));
     }

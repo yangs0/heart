@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="site" content="http://www.yangs0.cn/" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
@@ -35,6 +36,7 @@
      <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>--}}
     <script type="text/javascript" src="/assets/js/helper.js"></script>
     <script type="text/javascript" src="/vendor/layer/layer.js"></script>
+
     @yield('script')
    {{-- <script type="text/javascript" src="//github.atool.org/canvas-nest.min.js"></script>--}}
 </body>

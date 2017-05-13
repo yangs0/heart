@@ -49,6 +49,10 @@ class User extends Authenticatable
         return $this->hasMany(Notices::class,'user_id');
     }
 
+    public function socialAccount(){
+        return $this->hasOne(Social::class);
+    }
+
 
 
     public function sendPasswordResetNotification($token){

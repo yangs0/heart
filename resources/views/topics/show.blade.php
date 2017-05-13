@@ -1,5 +1,9 @@
 @extends('layouts.default')
-
+@section('styles')
+    <meta name="title" content="{{$topic->title}}" />
+    <meta name="description" content="{{$topic->summary}}" />
+    <link href="{{asset('/assets/css/share.min.css')}}" rel="stylesheet">
+    @stop
 @section('content')
     <div class="container">
         <div class="col-sm-8 row">
@@ -32,6 +36,11 @@
                             觉得该文章写得不错 ? 那么
                             <button class="btn btn-danger btn-sm">￥打赏</button>
                             支持一下吧！
+                            {{--<div class="social-share" data-initialized="true">
+                                <a href="#" class="social-share-icon icon-weibo"></a>
+                                <a href="#" class="social-share-icon icon-qq"></a>
+                                <a href="#" class="social-share-icon icon-qzone"></a>
+                            </div>--}}
                         </div>
                     </div>
                     <div class="article-foot-tags">
@@ -48,7 +57,8 @@
                             </button>
                         </div>-->
                         <div class="options">
-                            <div class="col-sm-12 text-right">
+
+                            <div class="col-sm-12 text-right" >
 
                                 @if(Auth::check())
 
@@ -61,9 +71,12 @@
                                     @endif
                                 <a><i class="fa fa-whatsapp go-comment"></i></a>
                                 <span><b>|</b></span>
-                                <a><i class="fa fa-wechat"></i></a>
-                                <a><i class="fa fa-weibo"></i></a>
-                                <a><i class="fa fa-qq"></i></a>
+                                <span data-initialized="true" class="social-share">
+                                    <a href="#" class="icon-wechat fa fa-wechat"></a>
+                                    <a class="icon-weibo fa fa-weibo" href="#"> </a>
+                                    <a href="#" class="icon-qq fa fa-qq"></a>
+                                    <a href="" class="icon-qzone fa fa-star"></a>
+                                </span>
                                 <span><b>|</b></span>
                                 <a><i class="glyphicon glyphicon-open"></i></a>
                             </div>
@@ -96,6 +109,8 @@
 @endsection
 
 @section('script')
+    <script type="text/javascript" src="/assets/js/jquery.share.min.js"></script>
+    <script type="text/javascript" src="/assets/js/social-share.min.js"></script>
     <script>
         @if(Auth::check())
 
