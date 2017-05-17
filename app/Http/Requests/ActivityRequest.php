@@ -24,7 +24,7 @@ class ActivityRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required|min:5|max:30',
+            'title'=>'required|min:5|max:50',
             'content'=>'required|min:15',
             'cover'=>'required|image|between:0,3072'
         ];

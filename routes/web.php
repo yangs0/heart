@@ -20,9 +20,12 @@ Auth::routes();
 Route::get("/active/verify/{token}/{email}", "UserController@activeUser")->name("email.verify");
 
 Route::get('/themes', 'ThemeController@index');  //主题广场-- （活动列表尚为完成，尚有链接，图像细节尚未补全）
+Route::post('/themes/user_count', 'ThemeController@updateNum')->name('theme.user_count');
+Route::post('/themes/chat', 'ThemeController@chat')->name('theme.chat');
 Route::get('/themes/{id}', 'ThemeController@show')->name('theme.show');  //主题  (区分topic 类别，尚未完成)
 Route::get('/themes/{id}/topic', 'ThemeController@show_topic')->name('theme.show_topic');  //主题  (区分topic 类别，尚未完成)
-Route::get('/themes/{id}/video', 'ThemeController@show_video')->name('theme.show_video');  //主题  (区分topic 类别，尚未完成)
+//Route::get('/themes/{id}/video', 'ThemeController@show_video')->name('theme.show_video');  //主题  (区分topic 类别，尚未完成)
+Route::get('/themes/{id}/room', 'ThemeController@show_rooms')->name('theme.show_rooms');
 
 //topic.show, 类别区分 尚未完成，
 //topic.create  右侧部分尚未玩成
@@ -51,7 +54,7 @@ Route::resource('/rooms', 'RoomsController', ['only'=>['show','test']]);
 //活动功能好像还什么都没做呢
 Route::get('/activities/show_{type?}', 'ActivityController@index')->name("activities.display");
 Route::post('/activities/{id}/part', 'ActivityController@doPart')->name('activities.part');
-Route::resource('activities', 'ActivityController', ['only'=>['index','show','create','store']]); //活动
+Route::resource('activities', 'ActivityController', ['only'=>['index','show','create','store','edit']]); //活动
 
 
 
@@ -90,6 +93,3 @@ Route::resource('users', 'UserController', ['only'=>['show','update']]);
 
 
 /*---------------------------------------------*/
-
-
-

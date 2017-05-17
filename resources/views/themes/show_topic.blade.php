@@ -36,7 +36,6 @@
                             </span>
                         </li>
                         @endforeach
-
                 </ul>
             </div>
 

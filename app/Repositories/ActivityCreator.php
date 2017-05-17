@@ -20,11 +20,11 @@ class ActivityCreator{
 //        $topic = Topic::create($data);
 //        \DB::table('themes')->where("id",$topic->theme_id)->increment('topics_count');
 //        return $topic;
-        
+
         //最后加一个检验是否重复提交 function isDuplicate
         $data['user_id'] = Auth::id();
         $data['start'] = empty($data['start']) ? Carbon::now() : Carbon::parse($data['start']);
-        $data['end'] =  Carbon::parse($data['start'])->modify("+3 days");
+        $data['end'] =  empty($data['end']) ? Carbon::parse($data['start'])->modify("+3 days"): Carbon::parse($data['end']);
         $data['created_at'] = Carbon::now()->toDateTimeString();
         $data['updated_at'] = Carbon::now()->toDateTimeString();
         $data['resolved_content'] = Parse::text(strip_tags($data['content']));

@@ -26,7 +26,7 @@ class CreateTopicsTable extends Migration
             $table->integer('collect_count')->unsigned()->default(0);
             $table->integer('browse_count')->unsigned()->default(0);
 
-            $table->enum('type', ['original', 'reprint','question','video'])->default('original');
+            $table->enum('type', ['original', 'reprint'])->default('original');
             $table->string('source')->nullable();
             $table->string('sourceUrl')->nullable();
 

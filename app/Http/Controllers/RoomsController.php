@@ -12,14 +12,12 @@ use Illuminate\Support\Facades\Redis;
 class RoomsController extends Controller
 {
     public function show($id){
-        /* $dorm = Dorm::with('members')->findOrFail($id);
-         $members = $dorm->members;*/
-
+        $user = Auth::user();
         $room = Room::findOrFail($id);
         if ($room->count()){
             $messages = ChatMsg::where('room_id', $id)->orderBy("created_at","asc")->with("user")->get();
 
-            return view('rooms.show',compact('room','messages'));
+            return view('rooms.show',compact('room','messages','user'));
         }else{
             return abort(404);
         }

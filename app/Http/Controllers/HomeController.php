@@ -4,16 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Models\Notices;
-use App\Models\Theme;
-use App\Repositories\ArticleRepository;
-
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Laracasts\Flash\Flash;
 
 class HomeController extends Controller
 {
@@ -34,16 +25,17 @@ class HomeController extends Controller
      */
     public function index(){
         $users = app('App\Repositories\UserRepository')->getActiveUser();
-
+        //session()->flash("flash_return_msg",['msg'=>'欢迎回来,','status'=>'success']);
         $themes = app('App\Models\Theme')->orderBy('topics_count')->take(6)->get();
         $topics = app('App\Models\Topic')->groupBy('theme_id')->orderBy('created_at','desc')->take(6)->get();
-        $hotTopics = app('App\Models\Topic')->with('user')->orderBy('created_at','desc')->orderBy('reply_count','desc')->take(6)->get();
+        $hotTopics = app('App\Models\Topic')->with('user')->orderBy('created_at','desc')->orderBy('reply_count','desc')->take(5)->get();
 
-        $notices = Notices::where('type',['activity','topic'])->with('fromUser')->orderBy('created_at','desc')->get();
+        //$notices = Notices::where('type',['activity','topic'])->with('fromUser')->orderBy('created_at','desc')->get();
+        $rencentTopics = app('App\Models\Topic')->with('user')->orderBy('created_at','desc')->take(5)->get();
 
         $activities =Activity::where('end','>', Carbon::now())->orderBy('created_at','desc')->get();
 
-        return view('pages.home',compact('users','topics','hotTopics', 'notices','activities','themes'));
+        return view('pages.home',compact('users','topics','hotTopics', 'rencentTopics','activities','themes'));
     }
 
    /* public function explore($filter= 'default'){

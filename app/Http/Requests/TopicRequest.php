@@ -26,7 +26,7 @@ class TopicRequest extends FormRequest
         return [
             'type'=>'required|in:original,reprint,question,video',
             'title'=>'required|min:5|max:50',
-            'theme'=>'required'
+            'theme_id'=>'required'
         ];
     }
 
@@ -62,7 +62,7 @@ class TopicRequest extends FormRequest
             'title.required'=>'标题不能为空哦',
             'title.min'=>'标题不能为空哦',
             'title.max'=>'标题不能不要太长哦',
-            'theme.required'=>'话题主题不能为空',
+            'theme_id.required'=>'话题主题不能为空',
             'tags.exists'=>'分类不存在',
 
             'figure.required' => "请设置一张封面好吗",

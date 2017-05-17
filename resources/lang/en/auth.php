@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => '帐号尚未激活.',
+    'failed' => '账号密码不正确，或账号未激活.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

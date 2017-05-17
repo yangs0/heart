@@ -71,22 +71,16 @@
         <div id="myTabContent" class="tab-content whitebk" style="margin-top: 0">
             <div class="tab-pane fade in active" id="home">
                 <ul class="list-unstyled ">
-                    @foreach($notices as $notice)
+                    @foreach($rencentTopics as $notice)
                         <li class="media" style="padding:20px 0 10px;margin:0 15px;border-bottom: 1px dashed #ccc">
-                            <a class="pull-left" href="{{route('users.show', $notice->fromUser->id)}}">
-                                <img class="media-object img-thumbnail img-circle" src="{{$notice->fromUser->avatar}}" alt="..." style="width: 45px;height: 45px">
+                            <a class="pull-left" href="{{route('users.show', $notice->user_id)}}">
+                                <img class="media-object img-thumbnail img-circle" src="{{$notice->user->avatar}}" alt="..." style="width: 45px;height: 45px">
                             </a>
                             <div class="media-body">
-                                <h5 class="media-heading"><a href="">{{$notice->fromUser->name}}</a>
-                                    @if($notice->type == 'topic')
+                                <h5 class="media-heading"><a href="">{{$notice->user->name}}</a>
                                         <small style="color: #aaa"> 创建了新话题</small>
                                 </h5>
-                                        <a style="color: #565656" href="{{route('topic.show', $notice->line_id)}}">{{\App\Models\Topic::find($notice->line_id)->title}}</a>
-                                    @elseif($notice->type == 'activity')
-                                    <small style="color: #aaa"> 创建了新活动</small>
-                                    </h5>
-                                        <a style="color: #565656" href="{{route('activities.show', $notice->line_id)}}">{{\App\Models\Activity::find($notice->line_id)->title}}</a>
-                                @endif
+                                        <a style="color: #565656" href="{{route('topic.show', $notice->id)}}">{{$notice->title}}</a>
 
 
                                 <span class="pull-right" style="color: #565656; font-size: 12px">3 ago</span>
@@ -153,11 +147,11 @@
 
 </div>
 
-<div class="container mt-20">
+<div class="container mt-20 hidden-xs hidden-sm">
     <h3 class="left-title"> 活跃 <small>用户</small></h3>
     @foreach($users as $user)
         <div class="col-sm-4 ">
-            <div class="media whitebk" style="padding: 20px" >
+            <div class="media whitebk" style="padding: 20px;margin-bottom: 20px" >
                 <a class="pull-left" href="{{route('users.show', $user->id)}}">
                     <img class="media-object img-circle img-thumbnail" src="{{$user->avatar}}"
                          alt="...">

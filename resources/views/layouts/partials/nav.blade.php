@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-default top-nav" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -34,6 +35,22 @@
                     <li><a href="/login" class="nva-options" ><button class="btn btn-success nav-l-r btn-block" href="/login" ><i class="fa fa-hand-o-right"> </i> 登 录 </button></a></li>
                     <li ><a href="/register" class="nva-options"><button class="btn btn-info nav-l-r btn-block"> Join <i class="fa fa-hand-o-left"> </i></button></a></li>
                 @else
+                    <li class="dropdown user-action">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                        <div class="list-group dropdown-menu">
+
+                            <a href="{{route('topic.create')}}" class="list-group-item">
+                                <i class="text-md fa fa-book"></i>
+                                发表文章
+                            </a>
+                            <a href="{{route('activities.create')}}" class="list-group-item">
+                                <i class="text-md fa fa-compass"></i>
+                                创建活动
+                            </a>
+                        </div>
+                    </li>
                     <li>
                     <!--{{$count_letters= Auth::user()->letters()->where("is_read",'0')->count()}}-->
                     <!--{{$count_notices = Auth::user()->notices()->where("is_read",'0')->count()}}-->
@@ -54,7 +71,7 @@
 
                     <li class="dropdown user-action">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ \Auth::user()->nick_name }} <span class="caret"></span>
+                            {{ \Auth::user()->name }} <span class="caret"></span>
                         </a>
                         <div class="list-group dropdown-menu">
                             <a href="{{route('users.show',Auth::id())}}" class="list-group-item">
@@ -64,10 +81,6 @@
                             <a href="{{route('users.edit')}}" class="list-group-item">
                                 <i class="text-md fa fa-edit"></i>
                                 编辑资料
-                            </a>
-                            <a href="{{route('topic.create')}}" class="list-group-item">
-                                <i class="text-md fa fa-book"></i>
-                                发表文章
                             </a>
                             <a href="{{ url('/logout') }}" class="list-group-item">
                                 <i class="text-md fa fa-sign-out"></i>

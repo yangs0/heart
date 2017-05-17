@@ -74,6 +74,7 @@ class RegisterController extends Controller
         ]);
 
         app('App\Repositories\EmailRepository')->sendVerifyEmailTo($user);
+
         return $user;
     }
 
@@ -82,7 +83,7 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-
+        session()->flash("flash_return_msg",['msg'=>'激活邮件已发送，请注意查收！','status'=>'success']);
         //$this->guard()->login($user);
 
         return redirect($this->redirectPath());

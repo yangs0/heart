@@ -23,18 +23,18 @@
                                 <a href="{{route("activities.show", $activity->id)}}" title="{{$activity->title}}">{{$activity->title}}</a>
                             <!--{{$now = \Carbon\Carbon::now()}}-->
                                 @if($activity->start->gt($now))
-                                    <span class="mark mark-activity-1">未开始</span>
+                                    <span class="mark mark-activity-1">报名中</span>
                                 @elseif($activity->start->lt($now) && $activity->end->gt($now) )
                                     <span class="mark mark-activity-0">进行中</span>
                                     @else
                                     <span class="mark mark-activity-3">已结束</span>
                                 @endif
                             </h3>
-                            <div class="activity-time odt" title="活动时间：2017年1月13日">
+                            <div class="activity-time odt" title="活动时间：{{$activity->start->toDateString()}} | {{$activity->end->toDateString()}}">
                                 <i class="fa fa-clock-o"></i>
                                 活动时间：{{$activity->start->toDateString()}} | {{$activity->end->toDateString()}}
                             </div>
-                            <div class="activity-address odt" title="雍和宫糖果星光现场">
+                            <div class="activity-address odt" title=" {{$activity->place}}">
                                 <i class="fa fa-map-marker"></i>
                                 {{$activity->place}}
                             </div>

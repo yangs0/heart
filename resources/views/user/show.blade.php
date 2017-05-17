@@ -1,5 +1,5 @@
 @extends('layouts.default')
-
+@section('style')<link href="{{asset('/assets/css/jquery.sinaEmotion.css')}}" rel="stylesheet">@stop
 @section('content')
     <div class="container">
         <div class="col-md-3">
@@ -48,7 +48,27 @@
                 <div class="panel-heading">
                     最新评论
                 </div>
-                <ul class="list-group">
+                @if($replies->count())
+                    <ul class="list-group comment" style="padding: 0">
+                        @foreach($replies as $reply)
+                            <li class="list-group-item">
+                                <span class="at-time">{{$reply->created_at->diffForHumans()}}</span>
+                                <h5 class="list-group-item-heading over-hidden">
+                                    <a href="{{$reply->replable->getUrl()}}" title="{{$reply->replable->title}}">{{$reply->replable->title}}</a>
+                                </h5>
+                                <p class="reply-content over-hidden">{{$reply->content}}</p>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <section class="text-center">
+                        {{$replies->links()}}
+                    </section>
+                @else
+                    <div class="panel-body">
+                        <div class="empty-content">暂时还没有内容。。。。</div>
+                    </div>
+                @endif
+                {{--<ul class="list-group">
                     <li class="list-group-item">
                         <span class="at-time">at 2013.10.2</span>
                         <h5 class="list-group-item-heading">
@@ -63,9 +83,17 @@
                         </h5>
                         <p class="reply-content">学习学习</p>
                     </li>
-                </ul>
+                </ul>--}}
             </div>
         </div>
     </div>
 
 @endsection
+@section('script')
+    <script type="text/javascript" src="/assets/js/jquery.sinaEmotion.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".list-group.comment").parseEmotion();
+        });
+    </script>
+@stop

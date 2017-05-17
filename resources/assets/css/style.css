@@ -1890,6 +1890,11 @@ h3 .mark {
     text-align: center;
     width: 50px;
 }
+.theme-inform .state a.cool {
+    background: #ff7d23 none repeat scroll 0 0;
+    font-size: 12px;
+    width: 80px;
+}
 .theme-inform .state a.following {
     background: #DC4251 none repeat scroll 0 0;
     font-size: 12px;

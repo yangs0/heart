@@ -26,16 +26,16 @@
     <div class="container">
         <div class="col-sm-3" style="padding-right: 0">
            <div class="panel panel-default">
-               <div class="panel-heading" style="font-weight: bold;color: #999">Online</div>
+               <div class="panel-heading" style="font-weight: bold;color: #999">Online <small>(<span id="num">0</span>)</small></div>
                <div class="panel-body">
                    <ul class="list-inline avatar-list" >
 
-                       <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
-                       <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
-                       <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
-                       <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
-                       <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
-                       <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
+                       {{--  <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
+                         <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
+                         <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
+                         <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
+                         <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>
+                         <li><img src="/uploads/avatars/default.jpg" alt="" class="img-circle avatar"></li>--}}
                    </ul>
                </div>
            </div>
@@ -48,7 +48,7 @@
                 <div class="panel-body chat-panel">
                     <div class="bubble">
                         @foreach($messages as $message)
-                            <div class="bubble-item clearfix {{showFr(Auth::id(), $message->user->id)}}">
+                            <div class="bubble-item clearfix {{showFr($user->id, $message->user->id)}}">
                                 <a href="#"><img src="{{$message->user->avatar}}" alt="..." class="user_face"></a>
                                 <span class="triangle"></span>
                                 <div class="article">{{$message->message}}</div>
@@ -218,8 +218,10 @@
 
 
 
-        var __USER__ = "{{Auth::id()}}";
+        var __USER__ = "{{$user->id}}";
         var socket = io('http://127.0.0.1:3000');
+
+        socket.emit('add user', {avatar:"{{$user->avatar}}",'id':"{{$user->id}}",'name':'{{$user->name}}'});
         socket.on('chat-Room:{{$room->id}}', function (data) {
             if(data != null){
                 if (__USER__ == data.user.id){
@@ -234,6 +236,31 @@
 
            //console.log($(".chat-panel")[0].scrollHeight);
         });
+
+        socket.on('join', function (data) {
+
+            var user_str = '';
+            var num = 0;
+            $.each(data, function (id,user) {
+                num++;
+                user_str += '<li class="user_'+user.id+'"><a href="#"><img src="'+user.avatar+'" alt="" class="img-circle avatar"></a></li>';
+            });
+            $("#num").html(num);
+            $('.avatar-list').append(user_str);
+        });
+
+        socket.on('leave', function (data) {
+
+            var user_str = '';
+            var num = 0;
+            $.each(data, function (user) {
+                num++;
+                user_str += '<li class="user_'+user.id+'"><a href="#"><img src="'+user.avatar+'" alt="" class="img-circle avatar"></a></li>';
+            });
+            $("#num").html(num);
+            $('.avatar-list').append(user_str);
+        });
+
 
         $("#send").bind('click', function () {
 

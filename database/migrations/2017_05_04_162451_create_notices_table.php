@@ -17,7 +17,7 @@ class CreateNoticesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('formId')->default('0');
-            $table->integer('type')->default(0);
+            $table->enum('type',['topic', 'activity','follow']);
             $table->string('msg')->default('');
             $table->integer('line_id')->default(0);
             $table->integer('is_read')->default(0);

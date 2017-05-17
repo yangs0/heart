@@ -3,6 +3,7 @@
     <meta name="title" content="{{$activity->title}}" />
     <meta name="description" content="{{$activity->intro}}" />
     <link href="{{asset('/assets/css/share.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/assets/css/jquery.sinaEmotion.css')}}" rel="stylesheet">
     <style>
         .s_btn{
             border-color: #00B5AD;
@@ -10,6 +11,9 @@
         }
         .s_btn:hover{
             background-color: #00B5AD;color: #FFF
+        }
+        h1,h2,h3,h4,h5{
+            font-weight: bold;
         }
     </style>
     @stop
@@ -24,6 +28,7 @@
                 <div class="row">
                     <article class="content">
                         <div class="headImg">
+                            <img src="{{$activity->cover}}" class="img-responsive " alt="...">
                         </div>
                         <p>
                             <span class="img-center-box" style="display:block;"></span>

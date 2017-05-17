@@ -3,13 +3,9 @@
         <div class="theme-avatar"><img src="{{$theme->cover}}" alt="..." class="img-circle" width="100" height="100"></div>
         <div class="theme-name">{{$theme->name}}</div>
         <div class="theme-ext">
-            <a>
-                <em>{{$theme->focus_count}}</em>
-                <b> 关注者</b>
-                <span class="triggerlayer" >
-                    <i class="fa fa-plus"></i>
-                    <em> 关注</em>
-                </span>
+            <a href="{{route('theme.show_rooms',$theme->id)}}">
+                <i class="fa fa-plus"></i>
+                <em> 进入房间 ({{$theme->focus_count}})</em>
             </a>
         </div>
         <div class="theme-links row">

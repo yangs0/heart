@@ -1,8 +1,7 @@
-@if(Auth::check()&& $activity->chatRoom)
+@if(Auth::check() && $activity->chatRoom  && $activity->end > \Carbon\Carbon::now())
     <a type="button" class="btn btn-warning btn-block" style="margin-bottom: 10px;" href="{{route('rooms.show', $activity->chatRoom->id)}}" >进入房间</a>
-@elseif(Auth::check() && $activity->user_id == Auth::id())
+@elseif(Auth::check() && $activity->user_id == Auth::id() && $activity->end > \Carbon\Carbon::now())
     <button type="button" class="btn btn-primary btn-block" style="margin-bottom: 10px;" id="createRoom"> 创建房间 </button>
-    <button type="button" class="btn btn-danger btn-block" style="margin-bottom: 20px;">编辑</button>
 @endif
 
 @section('script')

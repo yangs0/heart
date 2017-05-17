@@ -12,14 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        /*\App\Models\User::create([
+        \App\Models\User::create([
             'name' => "Ten_year.",
             'email' => "553974235@qq.com",
             'password' => bcrypt('123456'),
             'remember_token' => str_random(10),
-        ]);*/
+            'is_active'=>'yes',
+            'is_admin'=>'yes'
+        ]);
 
-        \App\Models\Theme::create([
+        /*\App\Models\Theme::create([
             'name'=>'叽喳校园',
             'cover'=>'/uploads/images/theme_school.jpg',
             'intro'=>'大学生活太无聊，上叽喳校园来吐槽，大学生活太孤单，上叽喳校园找朋友，总能让你发现不一样的大学生活'
@@ -52,6 +54,6 @@ class DatabaseSeeder extends Seeder
             'name'=>'科技时代',
             'cover'=>'/uploads/images/theme_science.jpg',
             'intro'=>'科技时代主题是一个创新资讯的聚集地，希望大家多整理些 ,科技前沿的,创新的话题,大家一起分享~~'
-        ]);
+        ]);*/
     }
 }

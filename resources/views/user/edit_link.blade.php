@@ -33,7 +33,7 @@
                         @endif
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <label class="col-sm-3 control-label" for="inputEmail3">绑定Github账号</label>
                         <div class="col-sm-9">
                             <a class="btn btn-default login-btn" href="https://laravel-china.org/auth/oauth?driver=wechat">
@@ -42,7 +42,7 @@
                             </a>
                             <span class="padding-sm">点击进行账号绑定</span>
                         </div>
-                    </div>
+                    </div>--}}
                     <br>
                     <br>
                 </form>

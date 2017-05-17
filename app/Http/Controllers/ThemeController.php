@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Theme;
+use App\Models\ThemeMsg;
 use App\Models\Topic;
 use App\Repositories\ThemeRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class ThemeController extends Controller
 {
@@ -30,7 +32,7 @@ class ThemeController extends Controller
         $recommend = $topic->fetchThemeTopicesWithFilter($theme->id,'excellent',3);
         $newTopics = $topic->fetchThemeTopicesWithFilter($theme->id,'default',5);
         $topics = $topic->fetchThemeTopicesWithFilter($theme->id, 'reply', 5);
-        $celebritiesAll = Topic::where('theme_id',1)->groupBy('user_id')->orderBy('user_count', 'desc')->with('user')
+        $celebritiesAll = Topic::where('theme_id',$id)->groupBy('user_id')->orderBy('user_count', 'desc')->with('user')
             ->select(\DB::raw('count(*) as user_count, user_id'))->get()->pluck('user');
         return view('themes.show',compact('theme', 'recommend', 'topics', 'newTopics','celebritiesAll'));
     }
@@ -57,5 +59,36 @@ class ThemeController extends Controller
     public function fetch_theme(Request $request){
         $data = Theme::select(['id','name'])->where("name",'like', '%'.$request->query('q').'%')->get();
         return response()->json(['status'=>'success', 'data'=>$data, 'msg'=>'获取主题成功']);
+    }
+
+
+    public function show_rooms($id){
+        $user= Auth::user();
+        $theme = Theme::findOrFail($id);
+        $messages = ThemeMsg::where('theme_id', $theme->id)->orderBy("created_at","asc")->with("user")->get();
+        return view('themes.room',compact('theme','messages','user'));
+    }
+
+    public function chat(Request $request){
+        //event(new DormChatEvent("sadasdasd", 'test1'));
+        $user= Auth::user();
+        $roomId = $request->input('theme');
+        ThemeMsg::create(['user_id'=>$user->id, 'theme_id'=>$roomId, 'message'=>$request->input('msg')]);
+
+        $data = [
+            'event'=>"theme-Room:".$roomId,
+            'data'=>[
+                'user'=>$user,
+                'msg'=>$request->input('msg')
+            ]
+        ];
+        Redis::publish('chatRoom',json_encode($data));
+    }
+
+    public function updateNum(Request $request){
+        $theme = Theme::findOrFail($request->input('id'));
+        $theme->focus_count = $request->input('num');
+        $theme->save();
+        return response()->json(['status'=>200,'msg'=>'success','data'=>[]]);
     }
 }

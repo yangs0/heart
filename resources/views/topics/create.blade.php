@@ -4,11 +4,10 @@
     <link rel="stylesheet" href="/assets/css/mditor.css"/>
     @stop
 @section('content')
-
-    {{dump($errors)}}
     <div class="container">
         <div class="alert whitebk setborder" style="margin:0 15px 15px">我们希望 Laravel China 能够成为拥有浓厚技术氛围的开发者社区，而实现这个目标，需要我们所有人的共同努力：友善，公平，尊重知识和事实。请严格遵守 - </div>
 
+        {{dump($errors)}}
         <div class="col-sm-9">
             <div class="whitebk setborder">
                 <div class="set-title">创建话题</div>
@@ -23,7 +22,7 @@
                                 <option value="original">原创</option>
                               {{--  <option value="question">提问</option>--}}
                                 <option value="reprint">转载</option>
-                                <option value="video">视频</option>
+                               {{-- <option value="video">视频</option>--}}
                             </select>
                         </div>
 
@@ -45,35 +44,39 @@
                         <div class="form-group" id="image">
                             <label for="" class="col-xs-2">封面：</label>
                             <div class="col-xs-10">
-                                <input type="file" name="figure">
+                                <input type="file" name="figure" value="{{old('figure')}}">
                             </div>
                             <div class="clearfix"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="">标题：</label>
-                            <input type="text" class="form-control" placeholder="请填写标题" name="title" value="" >
+                            <input type="text" class="form-control" placeholder="请填写标题" name="title" value="{{old('title')}}" >
                         </div>
 
                         <div class="form-group" id="summary">
                             <label for="">概述：</label>
-                            <input type="text" class="form-control" placeholder="简单的说明一下你写的内容吧" name="summary" value="" >
+                            <input type="text" class="form-control" placeholder="简单的说明一下你写的内容吧" name="summary" value="{{old('summary')}}" >
                         </div>
 
                         <div class="form-group">
                             <label for="">主题：</label>
-                            <select class="selectpicker form-control" name="theme" >
+                            <select class="selectpicker form-control" name="theme_id" >
                                 <option value="" disabled="" selected="">请选择分类</option>
-                                <option value="1">招聘</option>
-                                <option value="4">问答</option>
+                               @foreach($themes as $theme)
+
+                                    <option value="{{$theme->id}}">{{$theme->name}}</option>
+                                   @endforeach
+
+                               {{-- <option value="4">问答</option>
                                 <option value="5">分享</option>
-                                <option value="6">教程</option>
+                                <option value="6">教程</option>--}}
                             </select>
                         </div>
 
                         <div class="form-group" id="mditor-text">
                             <label for="">内容：</label>
-                            <textarea id="editor" name="content" class="form-control" cols="30" rows="10"  placeholder="请使用 Markdown 格式书写 ;-)，代码片段黏贴时请注意使用高亮语法"></textarea>
+                            <textarea id="editor" name="content" class="form-control" cols="30" rows="10"  placeholder="请使用 Markdown 格式书写 ;-)，代码片段黏贴时请注意使用高亮语法">{{old('content')}}</textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">创建话题</button>
@@ -85,8 +88,7 @@
         </div>
 
         <div class="col-md-3 hidden-sm">
-
-            <div class="whitebk setborder">
+            {{--<div class="whitebk setborder">
                 <div class="kn_sub_right">
                     <p>
                         我已向知识库提交
@@ -98,8 +100,8 @@
                     </p>
 
                 </div>
-            </div>
-            <div class="whitebk setborder other">
+            </div>--}}
+            <div class="whitebk setborder">
                 <div class="relative-themes">
                     <div class="title">
                         <span style="cursor: default;font-weight: 700;">话题光荣榜</span>
@@ -110,56 +112,24 @@
                     </div>
                     <div class="more-list">
                         <ul class="list-unstyled">
-                            <li class="clearfix">
-                                <div class="l">
-                                    <a href="http://lib.csdn.net/base/agile" target="_blank">
-                                        <img src="/uploads/avatar/default.jpg" alt="..." data-bd-imgshare-binded="1" class="img-circle">
-                                    </a>
-                                </div>
-                                <div class="r">
-                                    <a class="htitle" href="http://lib.csdn.net/base/agile" target="_blank">敏捷</a>
-                                    <p>
-                                        <em>2545 </em>
-                                        关注者
-                                        <em>144 </em>
-                                        条收录
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="clearfix">
-                                <div class="l">
-                                    <a href="http://lib.csdn.net/base/agile" target="_blank">
-                                        <img src="/uploads/avatar/default.jpg" alt="..." data-bd-imgshare-binded="1" class="img-circle">
-                                    </a>
-                                </div>
-                                <div class="r">
-                                    <a class="htitle" href="http://lib.csdn.net/base/agile" target="_blank">敏捷</a>
-                                    <p>
-                                        <em>2545 </em>
-                                        关注者
-                                        <em>144 </em>
-                                        条收录
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li class="clearfix">
-                                <div class="l">
-                                    <a href="http://lib.csdn.net/base/agile" target="_blank">
-                                        <img src="/uploads/avatar/default.jpg" alt="..." data-bd-imgshare-binded="1" class="img-circle">
-                                    </a>
-                                </div>
-                                <div class="r">
-                                    <a class="htitle" href="http://lib.csdn.net/base/agile" target="_blank">敏捷</a>
-                                    <p>
-                                        <em>2545 </em>
-                                        关注者
-                                        <em>144 </em>
-                                        条收录
-                                    </p>
-                                </div>
-                            </li>
+                            @foreach($users as $user)
+                                <li class="clearfix">
+                                    <div class="l">
+                                        <a href="{{route('users.show',$user->id)}}" target="_blank">
+                                            <img src="{{$user->avatar}}" alt="..." class="img-circle">
+                                        </a>
+                     `               </div>
+                                    <div class="r">
+                                        <a class="htitle" href="{{route('users.show',$user->id)}}">{{$user->name}}</a>
+                                        <p>
+                                            <em>{{$user->topics_count}} </em>
+                                            关注者
+                                            <em>{{$user->follower_count}} </em>
+                                            条话题
+                                        </p>
+                                    </div>
+                                </li>
+                                @endforeach
 
                         </ul>
                     </div>

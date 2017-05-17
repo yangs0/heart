@@ -1,13 +1,14 @@
 <div class="carousel slide car-act" id="activity"  data-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-target="#activity" data-slide-to="0" class="active"></li>
-        <li data-target="#activity" data-slide-to="1"></li>
+        @foreach($proActivity as $proAct)
+        <li data-target="#activity" data-slide-to="{{$loop->index}}" class=" @if ($loop->first) active @endif"></li>
+        @endforeach
     </ol>
     <div class="carousel-inner " >
         @foreach($proActivity as $proAct)
             <div class="item   @if ($loop->first) active @endif ">
-                <img src="{{$proAct->cover}}" alt="..." />
-                <div class="carousel-caption design" >
+                <a href="{{route("activities.show", $proAct->id)}}"><img src="{{$proAct->cover}}" alt="..." /></a>
+                <div class="carousel-caption design hidden-sm hidden-xs" >
                     <h4>
                         <a href="{{route("activities.show", $proAct->id)}}" title="{{$proAct->title}}">{{$proAct->title}}</a>
                     </h4>

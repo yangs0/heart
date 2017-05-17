@@ -19,10 +19,12 @@
             'environment': '{{ app()->environment() }}',
         };
 
-        var ShowCrxHint = '{{isset($show_crx_hint) ? $show_crx_hint : 'no'}}';
+       /* var ShowCrxHint = 'isset($show_crx_hint) ? $show_crx_hint : 'no'';*/
     </script>
 </head>
 <body id="body">
+    @include('flash::message')
+
     @include("layouts.partials.nav")
     <div class="main-body" >
         @yield('content')
@@ -36,8 +38,26 @@
      <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>--}}
     <script type="text/javascript" src="/assets/js/helper.js"></script>
     <script type="text/javascript" src="/vendor/layer/layer.js"></script>
-
+    <style>
+        .navbar-default .navbar-nav > .open > a{
+            background-color: #37474F !important;
+            color: #666!important;
+        }
+    </style>
     @yield('script')
+    @if(session()->has('flash_return_msg'))
+        <script>
+            @if(session('flash_return_msg')['status'] == 'success')
+                layer.msg('{{session('flash_return_msg')['msg']}}', {time: 3500, icon:6});
+
+            @elseif(session('flash_return_msg')['status'] == 'fail')
+               layer.msg('{{session('flash_return_msg')['msg']}}', {time: 3500, icon:5});
+            @elseif(session('flash_return_msg')['status'] == 'warning')
+                 layer.msg('{{session('flash_return_msg')['msg']}}', {time: 3500, icon:7});
+                @endif
+        </script>
+
+    @endif
    {{-- <script type="text/javascript" src="//github.atool.org/canvas-nest.min.js"></script>--}}
 </body>
 </html>

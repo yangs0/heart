@@ -3,6 +3,11 @@
     <meta name="title" content="{{$topic->title}}" />
     <meta name="description" content="{{$topic->summary}}" />
     <link href="{{asset('/assets/css/share.min.css')}}" rel="stylesheet">
+    <style>
+        h1,h2,h3,h4,h5{
+            font-weight: bold;
+        }
+    </style>
     @stop
 @section('content')
     <div class="container">

@@ -29,10 +29,10 @@ class ActivityController extends Controller
         return view('activities.show', compact('activity', 'replies','participants'));
     }
 
-    public function create()
-    {
+    public function create(){
         return view('activities.create');
     }
+
 
     public function store(ActivityRequest $request){
         $data = $request->except('_token'); //文件处理
@@ -40,7 +40,7 @@ class ActivityController extends Controller
             $file = $request->file('cover');
             if ($file->isValid()){
                 //文件存储打话， 之后可以将其封装起来
-                $data['cover'] = $request->file('cover')->storeAs('banner',uniqid("user_id_").'.'.$file->getClientOriginalExtension(),'uploads');//url('uploads/'.$data['figure']->store('avatars','uploads'))
+                $data['cover'] = '/uploads/'.$request->file('cover')->storeAs('images',uniqid(Auth::id()).'.'.$file->getClientOriginalExtension(),'uploads');//url('uploads/'.$data['figure']->store('avatars','uploads'))
             }
         }
         //dd(Request::isValidFile($data['figure']));

@@ -35,9 +35,11 @@ class UserController extends Controller
         $result = app('App\Repositories\EmailRepository')->activeTokenVerify($token, $email);
         //dump( \DB::getQueryLog());
         if ($result){
+            session()->flash("flash_return_msg",['msg'=>'恭喜你，激活成功！','status'=>'success']);
             return redirect('/');
         }else{
-            flash('激活链接已经失效，用户已激活','error')->important();
+            session()->flash("flash_return_msg",['msg'=>'激活链接已经失效，用户已激活！','status'=>'warning']);
+           // flash('激活链接已经失效，用户已激活','error')->important();
             return redirect('/login');
         }
     }
@@ -58,10 +60,10 @@ class UserController extends Controller
             "topics.theme"])->select('id','name')->find($id);
         dump($user->toArray());*/
 
-
+        $replies = app(Reply::class)->getRecentComment($id,3);
         $topics = app('App\Models\Topic')->fetchUserTopicWithFilter($id,'default', 8);
 
-        return view('user.show', compact('user', 'topics'));
+        return view('user.show', compact('user', 'topics','replies'));
     }
     /**
      * 用户最近操作显示（未完成）  -----需要优化啊
@@ -210,7 +212,8 @@ class UserController extends Controller
             $user->save();
             return redirect('/users/edit_link');
         }
-        return redirect('/');
+        session()->flash("flash_return_msg",['msg'=>'用户尚未绑定该平台账号','status'=>'fail']);
+        return redirect('/login');
     }
 
 }

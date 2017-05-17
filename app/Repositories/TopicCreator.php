@@ -20,7 +20,7 @@ class TopicCreator{
 
     public function create($data){ //基本架构
 //        $topic = Topic::create($data);
-//        \DB::table('themes')->where("id",$topic->theme_id)->increment('topics_count');
+        \DB::table('themes')->where("id",$data['theme_id'])->increment('topics_count');
 //        return $topic;
 
         //最后加一个检验是否重复提交 function isDuplicate
@@ -37,7 +37,8 @@ class TopicCreator{
             'type'=>'topic',
             "line_id"=>$topic->id
         ]);
-        Auth::user()->increment('topic_count', 1);
+        Auth::user()->increment('topics_count', 1);
+
         return route('topic.show',$topic->id); //就返回路径吧
     }
 

@@ -25,6 +25,7 @@ class CreateActivitiesTable extends Migration
             $table->string('cover')->nullable()->comment('封面');
             $table->enum('is_banned',['yes','no'])->default('no')->comment('禁止');
             $table->unsignedInteger('reply_count')->default(0)->comment("评论数");
+            $table->unsignedInteger('part_count')->default(0)->comment("参与人数");
             $table->unsignedInteger('last_reply_user_id')->nullable()->index();
             $table->unsignedInteger('user_id')->index();
             $table->softDeletes();

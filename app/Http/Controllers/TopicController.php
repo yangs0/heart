@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\TopicRequest;
+use App\Models\Theme;
 use App\Models\Topic;
 use App\Models\User;
 use Carbon\Carbon;
@@ -36,7 +37,9 @@ class TopicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        return view('topics.create');
+        $themes = Theme::all();
+        $users = User::orderBy('topics_count','desc')->take(5)->get();
+        return view('topics.create', compact('themes','users'));
     }
 
     /**
@@ -69,11 +72,11 @@ class TopicController extends Controller
             $file = $request->file('figure');
             if ($file->isValid()){
                 //文件存储打话， 之后可以将其封装起来
-                $data['figure'] = $request->file('figure')->storeAs('avatars',uniqid("user_id_").'.'.$file->getClientOriginalExtension(),'uploads');//url('uploads/'.$data['figure']->store('avatars','uploads'))
+                $data['figure'] = '/uploads/'.$request->file('figure')->storeAs('images',uniqid(Auth::id()).'.'.$file->getClientOriginalExtension(),'uploads');//url('uploads/'.$data['figure']->store('avatars','uploads'))
             }
         }
         //dd(Request::isValidFile($data['figure']));
-        return app('App\Repositories\TopicCreator')->create($data);
+        return redirect(app('App\Repositories\TopicCreator')->create($data));
 
 
 

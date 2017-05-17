@@ -7382,7 +7382,7 @@ body{
     padding: 0;
 }
 #carousel{
-    height: 398px;
+    height: 238px;
     margin-top: -26px;
 }
 .carousel-inner ,.carousel-inner .item{
@@ -7391,19 +7391,20 @@ body{
 
 
 .car-act{
-    height: 350px;
+    height: 220px;
 }
 .car-act .carousel-indicators{
     left: 40%;
 }
 .car-act .carousel-inner .item img{
-    width: calc(100% - 250px);
-    height: 350px;
+  /*  width: calc(100% - 250px);*/
+  width:100%;
+    height: 220px;
 }
 .car-act .carousel-inner .item .design{
     padding: 25px 20px;
     width: 250px;
-    height: 350px;
+    height: 220px;
     top: 0;
     left: calc(100% - 250px);
     background-color: #333333;
@@ -7575,7 +7576,7 @@ h3 .mark {
 }
 .maintext .mainbottomtext {
     height: 205px;
-    margin-top: 10px;
+    margin-top: 40px;
     position: relative;
 }
 .maintext .mainbottomtext .site a:hover{
@@ -9507,10 +9508,15 @@ a.aname{
     text-align: center;
     width: 50px;
 }
+.theme-inform .state a.cool {
+  background: #ffc554 none repeat scroll 0 0;
+  font-size: 12px;
+  width: 50px;
+}
 .theme-inform .state a.following {
     background: #DC4251 none repeat scroll 0 0;
     font-size: 12px;
-    width: 80px;
+    width: 50px;
 }
 .theme-inform .state span {
     color: black;
@@ -10180,6 +10186,28 @@ a.aname{
     width: 25%;
     display: block;
   }
+  #carousel{
+    height: 398px;
+    margin-top: -26px;
+  }
+  .car-act{
+    height: 300px;
+  }
+
+  .car-act .carousel-inner .item img{
+    width: calc(100% - 250px);
+    height: 300px;
+  }
+  .car-act .carousel-inner .item .design{
+    padding: 25px 20px;
+    width: 250px;
+    height: 300px;
+    top: 0;
+    left: calc(100% - 250px);
+    background-color: #333333;
+    color: #FFF;
+    text-align: left;
+  }
 }
 
 /* 大屏幕（大桌面显示器，大于等于1200px） */
@@ -10191,6 +10219,16 @@ a.aname{
         width: 25%;
         display: block;
     }
+  .car-act{
+    height: 350px;
+  }
+  .car-act .carousel-inner .item img{
+    width: calc(100% - 250px);
+    height: 350px;
+  }
+  .car-act .carousel-inner .item .design{
+    height: 350px;
+  }
 }
 i.form-control-feedback.fa {
   margin: 8px 6px 0 0;

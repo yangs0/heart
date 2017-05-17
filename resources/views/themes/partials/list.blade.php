@@ -1,16 +1,24 @@
+
 <div class="row">
     <ul class="themes-list">
         @foreach($themes as $theme)
             <li>
-                <a href="#"><img src="{{$theme->cover}}" alt="{{$theme->name}}" ></a>
+                <a href="{{route('theme.show',$theme->id)}}"><img src="{{$theme->cover}}" alt="{{$theme->name}}" ></a>
                 <div class="theme-inform">
                     <div class="theme-name">
                         <a href="{{route('theme.show',$theme->id)}}">{{$theme->name}}</a>
                         {{--<span>每周四更新</span>--}}
                     </div>
                     <div class="state">
-                        <a class="follow-wj" href="javascript:;">关注</a>
-                        <span><span class="count">{{$theme->focus_count}}</span>人正在追</span>
+                        @if($theme->focus_count == 0)
+                            <a class="follow-wj cool" href="{{route('theme.show_rooms',$theme->id)}}" >冷清</a>
+                        @elseif($theme->focus_count <5)
+                            <a class="follow-wj " href="{{route('theme.show_rooms',$theme->id)}}" >闲聊</a>
+                        @else
+                            <a class="follow-wj following" href="{{route('theme.show_rooms',$theme->id)}}" >火热</a>
+                        @endif
+
+                        <span><span class="count">{{$theme->focus_count}}</span>人正在交流</span>
                     </div>
                     <p>{{str_limit($theme->intro,100,'...')}}</p>
                     <div class="big-content">
