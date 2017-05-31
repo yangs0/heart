@@ -22,8 +22,6 @@
             <div class="item">
                 <img src="/uploads/banner/home_page04.jpg" alt="" style="width: 100%;height: 100%"/>
             </div>
-
-
         </div>
 
         <div class="maintext hidden-xs hidden-sm">
@@ -66,6 +64,11 @@
                   {{--  <a href="http://lib.csdn.net/weekly/history/list" target="_blank">交流区</a>--}}
                 </p>
                 @if(!Auth::check())
+                    <style>
+                        .maintext .mainbottomtext{
+                            margin-top: 40px;
+                        }
+                    </style>
                     <div class="botext">
                         <p>社区的进步需要你的支持</p>
                         <a class="btn btn-warning" href="http://lib.csdn.net/assemble" >登录</a>

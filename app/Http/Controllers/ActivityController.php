@@ -9,22 +9,23 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ActivityController extends Controller
-{
+class ActivityController extends Controller{
+    public function __construct(){
+        $this->middleware('auth',['only'=>['create','store','doPart']]);
+    }
     public function index($type = null){
-
         if ($type){
             $proActivity = Activity::where('end', '>', Carbon::now())->orderBy("part_count",'desc')->take(3)->get();
             $activities = app(Activity::class)->getActivityWithFilter($type, 12);
             return view('activities.index', compact('activities','proActivity'));
         }
         return redirect(route('activities.display', 'all'));
-
     }
 
     public function show($id){
         $activity =Activity::with("participants")->findOrFail($id);
         $participants = $activity->participants;
+
         $replies = $activity->replies()->with('user')->paginate(6);
         return view('activities.show', compact('activity', 'replies','participants'));
     }

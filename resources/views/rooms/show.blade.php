@@ -19,11 +19,17 @@
         .s-face{cursor:pointer;}
         .screen .s_dm .mask{width:100%;height:100%;position:absolute;top:0;left:0;background:#000;opacity:0.5;filter:alpha(opacity=50);z-index:1;}
         /*end screen*/
-
+        .system-msg{
+            background-color: #aaa;
+            padding: 3px 15px;
+            color: #FFF;
+            font-size: 12px;
+            border-radius: 10px;
+        }
     </style>
     @stop
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-bottom: 100px">
         <div class="col-sm-3" style="padding-right: 0">
            <div class="panel panel-default">
                <div class="panel-heading" style="font-weight: bold;color: #999">Online <small>(<span id="num">0</span>)</small></div>
@@ -74,7 +80,7 @@
         </div>
         <div class="col-sm-1">
             <div class="dorm-options row">
-                <a class="btn btn-warning btn-block">清除记录</a>
+                <a class="btn btn-warning btn-block clearMsg">清除消息</a>
                 <a class="btn btn-success btn-block" id="click_screen">弹幕窗口</a>
                 {{--<a class="btn btn-success btn-block" href="/dorm/1/edit">约吧</a>
                 <a class="btn btn-info btn-block" href="/dorm/1/edit">宿舍DIY</a>--}}
@@ -138,7 +144,7 @@
                 init_screen();
 
                 $('.s_txt').val('').focus();
-                $.post('{{route("chat.msg")}}',{msg:text, 'dorm':"1"});
+                $.post('{{route("chat.msg")}}',{msg:text, 'room':"{{$room->id}}"});
                 var btn = $(this).button('loading');
                 setTimeout(function () {
                     btn.button('reset');
@@ -219,9 +225,9 @@
 
 
         var __USER__ = "{{$user->id}}";
-        var socket = io('http://127.0.0.1:3000');
+        var _ROOM_ = 'chat_{{$room->id}}';
 
-        socket.emit('add user', {avatar:"{{$user->avatar}}",'id':"{{$user->id}}",'name':'{{$user->name}}'});
+        socket.emit('joinRoom', {avatar:"{{$user->avatar}}",'id':"{{$user->id}}",'name':'{{$user->name}}',room:_ROOM_});
         socket.on('chat-Room:{{$room->id}}', function (data) {
             if(data != null){
                 if (__USER__ == data.user.id){
@@ -231,34 +237,25 @@
                 }
                 $('.bubble .article:last').parseEmotion();
             }
-           //toBottom();
-            show_tb();
+           toBottom();
+            //show_tb();
 
            //console.log($(".chat-panel")[0].scrollHeight);
         });
 
-        socket.on('join', function (data) {
-
-            var user_str = '';
-            var num = 0;
-            $.each(data, function (id,user) {
-                num++;
-                user_str += '<li class="user_'+user.id+'"><a href="#"><img src="'+user.avatar+'" alt="" class="img-circle avatar"></a></li>';
-            });
-            $("#num").html(num);
-            $('.avatar-list').append(user_str);
+        socket.on('system:'+_ROOM_, function (data) {
+            $(".bubble").append('<div class="bubble-item text-center" > <span class="system-msg">'+data+'</span> </div>')
         });
-
-        socket.on('leave', function (data) {
-
+        socket.on('onlineUser:'+_ROOM_, function (data) {
+            console.log(data);
             var user_str = '';
             var num = 0;
-            $.each(data, function (user) {
+            $.each(data, function (a,user) {
                 num++;
-                user_str += '<li class="user_'+user.id+'"><a href="#"><img src="'+user.avatar+'" alt="" class="img-circle avatar"></a></li>';
-            });
+                user_str += '<li class="user_'+user.id+'"><a href="/users/'+user.id+'"><img src="'+user.avatar+'" alt="'+user.name+'" class="img-circle avatar"></a></li>';
+            })
             $("#num").html(num);
-            $('.avatar-list').append(user_str);
+            $('.avatar-list').html(user_str);
         });
 
 
@@ -297,7 +294,9 @@
             //$(".chat-panel")[0].scrollTop = $(".chat-panel")[0].scrollTopMax;
            // document.getElementById('msg_end').scrollIntoView(false);
         }
-
+        $('.clearMsg').bind('click', function () {
+            $('.bubble').html('');
+        });
 
         function show_tb() {
             if($(".chat-panel")[0].scrollTop < ($(".chat-panel")[0].scrollHeight*6/7-120)){

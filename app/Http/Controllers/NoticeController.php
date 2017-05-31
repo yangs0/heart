@@ -7,15 +7,18 @@ use App\Models\Notices;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class NoticeController extends Controller
 {
-    //
+    public function __construct(){
+        $this->middleware('auth');
+    }
 
     public function letter(){
         Letter::where('user', Auth::id())->update(['is_read'=>1]);
-        $letters = Letter::where("user",Auth::id())->groupBy("friend")->orderBy('is_read','asc')->orderBy('created_at','desc')->get();
+        $letters = Letter::where("user",Auth::id())->groupBy("friend")->orderBy('is_read','asc')->orderBy('created_at','asc')->get();
         return view("user.letter", compact('letters'));
     }
 
@@ -45,6 +48,13 @@ class NoticeController extends Controller
             'to_id'=>$user_id,
             'msg'=>$content
         ]);
+        $data = [
+            'event'=>"letters",
+            'toUser'=>$user_id,
+            'type'=>"letter"
+        ];
+        Redis::publish('noServer',json_encode($data));
+
         return response()->json(['status'=>200,"data"=>[],'msg'=>"发送成功"]);
     }
 

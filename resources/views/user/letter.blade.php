@@ -22,7 +22,7 @@
     </style>
     @stop
 @section('content')
-    <div class="container">
+    <div class="container"style="margin-bottom: 250px">
         <div class="col-sm-3">
             @include('user.partials.notice_nav')
         </div>

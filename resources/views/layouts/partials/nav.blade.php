@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-default top-nav" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -56,14 +55,14 @@
                     <!--{{$count_notices = Auth::user()->notices()->where("is_read",'0')->count()}}-->
                         @if($count_letters)
                         <a href="{{route('users.letter')}}"><i class="fa fa-bell"></i>
-                            <span class="" style="padding:3px 6px;font-size:3px;border-radius:100%;background-color: #c95865;margin-left: -5px">{{$count_notices+$count_letters}}</span>
+                            <span class="" style="padding:3px 6px;font-size:8px;border-radius:100%;background-color: #c95865;margin-left: -5px">{{$count_notices+$count_letters}}</span>
                         </a>
                             @elseif($count_notices)
                             <a href="{{route('users.notice')}}"><i class="fa fa-bell"></i>
-                                <span class="" style="padding:3px 6px;font-size:3px;border-radius:100%;background-color: #c95865;margin-left: -5px">{{$count_notices}}</span>
+                                <span class="" style="padding:3px 6px;font-size:8px;border-radius:100%;background-color: #c95865;margin-left: -5px">{{$count_notices}}</span>
                             </a>
                             @else
-                            <a href="{{route('users.letter')}}"><i class="fa fa-bell"></i>
+                            <a href="{{route('users.letter')}}" id="bell-a"><i class="fa fa-bell"></i>
                             </a>
                         @endif
                     </li>
@@ -78,10 +77,18 @@
                                 <i class="text-md fa fa-user"></i>
                                 个人页面
                             </a>
+
                             <a href="{{route('users.edit')}}" class="list-group-item">
                                 <i class="text-md fa fa-edit"></i>
                                 编辑资料
                             </a>
+
+                            @if(Auth::user()->is_admin == 'yes')
+                                <a href="{{asset('/admin/user')}}" class="list-group-item">
+                                    <i class="text-md fa fa-cogs"></i>
+                                    管理中心
+                                </a>
+                            @endif
                             <a href="{{ url('/logout') }}" class="list-group-item">
                                 <i class="text-md fa fa-sign-out"></i>
                                 Logout

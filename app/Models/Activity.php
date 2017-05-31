@@ -24,6 +24,9 @@ class Activity extends Model
     public function chatRoom(){
         return $this->hasOne(Room::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
 
 

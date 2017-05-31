@@ -73,12 +73,14 @@
             @if($activity->end->gt($now) )
                 <div class="whitebk other text-center">
                     <div style="padding: 30px 20px">
+                        @if(!(count($participants) && $participants->contains(Auth::user())))
                         <div class="btn-group">
                             <a href="javascript:void(0)" data-url="{{route('activities.part', $activity->id)}}" data-type="POST" id="part" class="btn btn-info s_btn">
                                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                 我要参加
                             </a>
                         </div>
+                        @endif
                         <div class="voted-users">
                             <div class="user-lists"> </div>
                             @if(count($participants))

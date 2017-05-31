@@ -6,67 +6,70 @@
                 <div class="widget am-cf">
                     <div class="widget-head am-cf">
                         <div class="am-btn-toolbar am-fr">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <a href="{{route('ticket.create')}}" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</a>
-                                {{--<button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>--}}
-                            </div>
                         </div>
-                        <div class="widget-title  am-cf">优惠券列表</div>
+                        <div class="widget-title  am-cf">活动列表</div>
 
 
                     </div>
-                    <div class="widget-body  am-fr">
-
-
-                     {{-- <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                           <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                               <input type="text" class="am-form-field ">
-                               <span class="am-input-group-btn">
-                                           <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search" type="button"></button>
-                                       </span>
-                           </div>
-                       </div>--}}
-
+                    <div class="widget-body am-fr">
                         <div class="am-u-sm-12">
                             <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black am-table-striped  am-table-compact am-text-nowrap" id="tableSort">
                                 <thead>
                                 <tr>
-                                    <th>封面图</th>
+                                    <th>#thumb</th>
                                     <th>标题</th>
-                                    <th>描述</th>
-                                    <th>价值</th>
-                                    <th>关键字</th>
-                                    <th>起止时间</th>
-                                    <th>领取数</th>
+                                    <th>发布人</th>
+                                    <th>参与数</th>
+                                    <th>开始时间 </th>
+                                    <th>结束时间</th>
+
+                                    <th>状态</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($tickets as $ticket)
+                                @foreach($activities as $activity)
                                     <tr class="even gradeC">
                                         <td>
-                                            <img src="{{Storage::url($ticket->figure)}}" class="tpl-table-line-img" alt="" width="50">
+                                            <img src="{{$activity->cover}}" class="tpl-table-line-img" alt="" width="50">
                                         </td>
-                                        <td class="am-text-middle">{{$ticket->title}}</td>
-                                        <td class="am-text-middle">{{$ticket->describe}}</td>
-                                        <td class="am-text-middle">￥ {{$ticket->value/100}}</td>
-                                        <td class="am-text-middle">{{$ticket->key}}</td>
-                                        <td class="am-text-middle">{{$ticket->start->toDateString()}} - {{$ticket->end->toDateString()}}</td>
-                                        <td class="am-text-middle">{{$ticket->count}}</td>
+                                        <td class="am-text-middle" title="$topic->title"><a href="{{route('activities.show', $activity->id)}}" target="_blank">{{str_limit($activity->title,20)}}</a></td>
+                                        <td class="am-text-middle">{{$activity->user->name}}</td>
+                                        <td class="am-text-middle">{{$activity->part_count}}</td>
+                                        <td class="am-text-middle">{{$activity->start}}</td>
+                                        <td class="am-text-middle">{{$activity->end}}</td>
+                                        <td class="am-text-middle">
+                                            @if($activity->is_banned == 'yes')
+                                            <span class="am-badge am-badge-warning">封禁</span>
+                                            @else
+                                                <span class="am-badge am-badge-success">正常</span>
+                                            @endif
+                                            <!--{{$now = \Carbon\Carbon::now()}}-->
+                                                @if($activity->start->gt($now))
+                                                    <span class="am-badge am-badge-success">报名中</span>
+                                                @elseif($activity->start->lt($now) && $activity->end->gt($now) )
+                                                    <span class="am-badge am-badge-danger">进行中</span>
+                                                @else
+                                                    <span class="am-badge am-badge-secondary">已结束</span>
+                                                @endif
+                                        </td>
                                         <td class="am-text-middle">
                                             <div class="tpl-table-black-operation">
-                                                <a href="javascript:;">
-                                                    <i class="am-icon-eye"></i> 查看
-                                                </a>
-                                                <a href="javascript:;" class="tpl-table-black-operation-del delTicket" data-id="{{$ticket->id}}">
-                                                    <i class="am-icon-trash"></i> 删除
-                                                </a>
+                                                @if($activity->is_banned == 'no')
+                                                    <a href="javascript:;" class="tpl-table-black-operation-del delTicket" data-id="{{$activity->id}}">
+                                                        <i class="am-icon-trash"></i> 封禁
+                                                    </a>
+                                                @else
+                                                    <a href="javascript:;" class="tpl-table-black-operation delTicket" data-id="{{$user->id}}">
+                                                        <i class="am-icon-trash"></i> 解封
+                                                    </a>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                @endforeach
+
+
                                 {{--<tr class="even gradeC">
                                     <td>
                                         <img src="assets/img/k.jpg" class="tpl-table-line-img" alt="">
@@ -111,9 +114,9 @@
 
     <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
         <div class="am-modal-dialog">
-            <div class="am-modal-hd">删除优惠券</div>
+            <div class="am-modal-hd">确定 封禁 / 解封 该活动?</div>
             <div class="am-modal-bd">
-                你，确定该优惠券的使用？ <small>删除优惠券后，用户领取记录也将清除</small>
+                {{--你，确定该优惠券的使用？ <small>删除优惠券后，用户领取记录也将清除</small>--}}
             </div>
             <div class="am-modal-footer">
                 <span class="am-modal-btn" data-am-modal-cancel>取消</span>
@@ -125,26 +128,16 @@
 
 @section('script')
     <script>
+        var _token = '{{csrf_token()}}';
         var _self = null;
         $(".delTicket").bind('click',function () {
             _self = $(this);
             $('#my-confirm').modal({
                 relatedTarget: this,
                 onConfirm: function(options) {
-                    $.ajax({
-                        type: "POST",
-                        url: "{{route('ticket.del')}}",
-                        data: {id:_self.data('id')},
-                        dataType: "json",
-                        success: function(response){
-                            console.log(_self);
-                            _self.parent().parent().parent().remove();
-                        },
-                        error:function (data) {
-                            alert(data.msg);
-                            window.location.reload();
-                        }
-                    });
+                    $.post("{{route('admin.user.banned')}}",{id:_self.data('id'),_token:_token},function (response) {
+                        window.location.reload()
+                    })
                 },
                 // closeOnConfirm: false,
                 onCancel: function() {

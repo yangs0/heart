@@ -19,11 +19,17 @@
         .s-face{cursor:pointer;}
         .screen .s_dm .mask{width:100%;height:100%;position:absolute;top:0;left:0;background:#000;opacity:0.5;filter:alpha(opacity=50);z-index:1;}
         /*end screen*/
-
+        .system-msg{
+            background-color: #aaa;
+            padding: 3px 15px;
+            color: #FFF;
+            font-size: 12px;
+            border-radius: 10px;
+        }
     </style>
     @stop
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-bottom: 100px">
         <div class="col-sm-3" style="padding-right: 0">
            <div class="panel panel-default">
                <div class="panel-heading" style="font-weight: bold;color: #999">Online <small>(<span id="num">0</span>)</small></div>
@@ -54,6 +60,7 @@
                                 <div class="article">{{$message->message}}</div>
                             </div>
                         @endforeach
+
                     </div>
                 </div>
                 <div class="panel-footer">
@@ -74,10 +81,16 @@
         </div>
         <div class="col-sm-1">
             <div class="dorm-options row">
-                @if($user->is_admin == 'yes')
-                    <a class="btn btn-warning btn-block">清除记录</a>
-                    @endif
+               @if($user->is_admin == 'yes')
+                    @if($theme->is_store)
+                        <a class="btn btn-danger btn-block dbMsg">消息记录 <small>(关)</small></a>
 
+                    @else
+                        <a class="btn btn-info btn-block dbMsg">消息记录 <small>(开)</small></a>
+                    @endif
+                   @endif
+
+                <a class="btn btn-warning btn-block clearMsg">清除消息</a>
                 <a class="btn btn-success btn-block" id="click_screen">弹幕窗口</a>
                 {{--<a class="btn btn-success btn-block" href="/dorm/1/edit">约吧</a>
                 <a class="btn btn-info btn-block" href="/dorm/1/edit">宿舍DIY</a>--}}
@@ -115,7 +128,6 @@
 @endsection
 
 @section('script')
-    <script src="https://cdn.bootcss.com/socket.io/1.5.0/socket.io.min.js"></script>
     <script type="text/javascript" src="/assets/js/jquery.sinaEmotion.js"></script>
     <script>
         $(function(){
@@ -223,9 +235,10 @@
 
 
         var __USER__ = "{{$user->id}}";
-        var socket = io('http://127.0.0.1:3000');
+        var _ROOM_ = 'theme_{{$theme->id}}';
+        /*var socket = io('http://127.0.0.1:3000');*/
 
-        socket.emit('add user', {avatar:"{{$user->avatar}}",'id':"{{$user->id}}",'name':'{{$user->name}}'});
+        socket.emit('joinRoom', {avatar:"{{$user->avatar}}",'id':"{{$user->id}}",'name':'{{$user->name}}', room:_ROOM_});
         socket.on('theme-Room:{{$theme->id}}', function (data) {
             if(data != null){
                 if (__USER__ == data.user.id){
@@ -235,35 +248,27 @@
                 }
                 $('.bubble .article:last').parseEmotion();
             }
-           //toBottom();
-            show_tb();
+           toBottom();
+            //show_tb();
 
            //console.log($(".chat-panel")[0].scrollHeight);
         });
-        socket.on('join', function (data) {
 
+        socket.on('system:'+_ROOM_, function (data) {
+            $(".bubble").append('<div class="bubble-item text-center" > <span class="system-msg">'+data+'</span> </div>')
+        });
+        socket.on('onlineUser:'+_ROOM_, function (data) {
             var user_str = '';
             var num = 0;
-            $.each(data, function (id,user) {
+            $.each(data, function (a,user) {
                 num++;
-                user_str += '<li class="user_'+user.id+'"><a href="#"><img src="'+user.avatar+'" alt="" class="img-circle avatar"></a></li>';
-            });
+                user_str += '<li class="user_'+user.id+'"><a href="/users/'+user.id+'"><img src="'+user.avatar+'" alt="'+user.name+'" class="img-circle avatar"></a></li>';
+            })
             $("#num").html(num);
-            $('.avatar-list').append(user_str);
-            $.post("{{route('theme.user_count')}}", {id:"{{$theme->id}}",num:num});
+            $('.avatar-list').html(user_str);
         });
 
-        socket.on('leave', function (data) {
 
-            var user_str = '';
-            var num = 0;
-            $.each(data, function (user) {
-                num++;
-                user_str += '<li class="user_'+user.id+'"><a href="#"><img src="'+user.avatar+'" alt="" class="img-circle avatar"></a></li>';
-            });
-            $("#num").html(num);
-            $('.avatar-list').append(user_str);
-        });
 
         $("#send").bind('click', function () {
 
@@ -281,6 +286,20 @@
             }, 2300);
         });
 
+        $('.clearMsg').bind('click', function () {
+            $('.bubble').html('');
+        });
+        $(".dbMsg").bind('click', function () {
+
+            if ($(this).hasClass('btn-danger')){
+
+                $(this).removeClass('btn-danger').addClass('btn-info').html('消息记录 <small>(开)</small>');
+                $.post('{{route('theme.msgdb')}}',{id:"{{$theme->id}}",store:0})
+            }else{
+                $(this).removeClass('btn-info').addClass('btn-danger').html('消息记录 <small>(关)</small>');
+                $.post('{{route('theme.msgdb')}}',{id:"{{$theme->id}}",store:1})
+            }
+        })
 
 
         function chat_str(data, is_rigth = false) {

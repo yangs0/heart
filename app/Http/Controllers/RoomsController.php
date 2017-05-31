@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Redis;
 
 class RoomsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function show($id){
         $user = Auth::user();
         $room = Room::findOrFail($id);
@@ -35,9 +38,10 @@ class RoomsController extends Controller
             'data'=>[
                 'user'=>$user,
                 'msg'=>$request->input('msg')
-            ]
+            ],
+            'type'=>"chat"
         ];
-        Redis::publish('chatRoom',json_encode($data));
+        Redis::publish('noServer',json_encode($data));
     }
 
 

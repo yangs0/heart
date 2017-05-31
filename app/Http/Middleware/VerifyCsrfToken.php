@@ -14,6 +14,7 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         "rooms/*",
         "/themes/chat",
-        '/themes/user_count'
+        '/themes/user_count',
+        '/themes/msgdb'
     ];
 }

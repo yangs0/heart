@@ -1,7 +1,7 @@
 <div class="user-box">
     <div class="media">
         <div class="media-left">
-            <img class="img-circle media-object img-thumbnail lg" src="{{$user->avatar}}" alt="loading...">
+            <a href="#" id="thumb_avatar"><img class="img-circle media-object img-thumbnail lg" src="{{$user->avatar}}" alt="loading..."></a>
         </div>
         <div class="media-body">
             <h3 class="media-heading" style="font-size: 20px"> {{$user->name}} </h3>
@@ -40,29 +40,45 @@
     <hr>
     <div class="user-infos">
         <ul class="list-inline">
-            <li class="circle-border" data-content="yangs0" data-original-title="" title="">
-                <a href="https://github.com/yangs0">
-                    <i class="fa fa-github-alt"></i>
-                    GitHub
-                </a>
-            </li>
-            <li class="circle-border weibo" data-content="yangs0" data-original-title="" title="">
-                <a href="https://github.com/yangs0">
-                    <i class="fa fa-weibo"></i>
-                    Weibo
-                </a>
-            </li>
-            <li class="circle-border title" data-content="yangs0" data-original-title="" title="">
-                <a href="https://github.com/yangs0">
-                    <i class="fa fa-transgender-alt"></i>
-                    GitHub
-                </a>
-            </li>
+            @if(!empty($user->github_name))
+                <li class="circle-border" title="{{$user->github_name}}">
+                    <a href="{{$user->github_link}}">
+                        <i class="fa fa-github-alt"></i>
+                        GitHub
+                    </a>
+                </li>
+                @endif
+                @if(!empty($user->github_name))
+                    <li class="circle-border weibo" title="{{$user->weibo_name}}">
+                        <a href="{{$user->weibo_link}}">
+                            <i class="fa fa-weibo"></i>
+                            Weibo
+                        </a>
+                    </li>
+                @endif
+
+                @if(!empty($user->school))
+                    <li class="circle-border weibo" title="{{$user->school}}">
+                        <a href="#">
+                            <i class="fa fa-home"></i>
+                            学校
+                        </a>
+                    </li>
+                @endif
+                @if(!empty($user->city))
+                    <li class="circle-border weibo" title="{{$user->city}}">
+                        <a href="#">
+                            <i class="fa fa-address-card-o"></i>
+                            城市
+                        </a>
+                    </li>
+                @endif
         </ul>
     </div>
     <hr>
     @if(Auth::check() && Auth::id() === $user->id)
         <a class="btn btn-danger btn-block" href="{{route('users.edit', $user->id)}}"><i class="fa fa-edit"></i> 编辑个人资料</a>
+        @include('user.partials.avatar')
     @endif
 
     @if(Auth::check() && Auth::id() != $user->id)
@@ -75,7 +91,9 @@
         </a>
 
         @include('user.partials.send_letter',['user'=>$user])
+
     @endif
+
 </div>
 @section('script')
     @parent

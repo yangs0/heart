@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Models\Notices;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,14 +26,20 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $users = app('App\Repositories\UserRepository')->getActiveUser();
-        //session()->flash("flash_return_msg",['msg'=>'欢迎回来,','status'=>'success']);
+       // $users = app('App\Repositories\UserRepository')->getActiveUser();
+        $users = User::where("topics_count",'desc')->take(3)->get();
+            //session()->flash("flash_return_msg",['msg'=>'欢迎回来,','status'=>'success']);
         $themes = app('App\Models\Theme')->orderBy('topics_count')->take(6)->get();
         $topics = app('App\Models\Topic')->groupBy('theme_id')->orderBy('created_at','desc')->take(6)->get();
-        $hotTopics = app('App\Models\Topic')->with('user')->orderBy('created_at','desc')->orderBy('reply_count','desc')->take(5)->get();
+        $hotTopics = app('App\Models\Topic')->with('user')->orderBy('reply_count','desc')->orderBy('created_at','desc')->take(5)->get();
 
         //$notices = Notices::where('type',['activity','topic'])->with('fromUser')->orderBy('created_at','desc')->get();
-        $rencentTopics = app('App\Models\Topic')->with('user')->orderBy('created_at','desc')->take(5)->get();
+        if (Auth::check()){
+            $rencentTopics = app('App\Models\Topic')->with('user')->orderBy('created_at','desc')->take(5)->get();
+        }else{
+            $rencentTopics = app('App\Models\Topic')->with('user')->orderBy('created_at','desc')->take(5)->get();
+        }
+
 
         $activities =Activity::where('end','>', Carbon::now())->orderBy('created_at','desc')->get();
 

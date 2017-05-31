@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 
 class RepliesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     //有待优化, 未区分活动或者话题
     public function store(ReplyRequest $request)
     {

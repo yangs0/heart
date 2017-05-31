@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('style')<link href="{{asset('/assets/css/jquery.sinaEmotion.css')}}" rel="stylesheet">@stop
 @section('content')
-    <div class="container">
+    <div class="container" style="margin-bottom: 100px">
         <div class="col-md-3">
             @include('user.partials.info')
 

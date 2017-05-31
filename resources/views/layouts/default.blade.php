@@ -10,7 +10,12 @@
     <!-- Styles -->
     <link href="{{asset('/vendor/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('/assets/css/app.css')}}" rel="stylesheet">
-
+    <style>
+        .navbar-default .navbar-nav > .open > a{
+            background-color: #37474F !important;
+            color: #666!important;
+        }
+    </style>
     @yield('styles')
     <script>
 
@@ -38,12 +43,27 @@
      <script type="text/javascript" src="/vendor/bootstrap/js/bootstrap.min.js"></script>--}}
     <script type="text/javascript" src="/assets/js/helper.js"></script>
     <script type="text/javascript" src="/vendor/layer/layer.js"></script>
-    <style>
-        .navbar-default .navbar-nav > .open > a{
-            background-color: #37474F !important;
-            color: #666!important;
-        }
-    </style>
+    @if(Auth::check())
+        <script src="https://cdn.bootcss.com/socket.io/1.5.0/socket.io.min.js"></script>
+        <script>var socket = io('http://127.0.0.1:3000');
+
+            socket.emit('setUser', {id:"{{Auth::user()->id}}", 'avatar':"{{Auth::user()->avatar}}"});
+            socket.on('letters', function (data) {
+                alert(data);
+                $("#bell-a").append('<span class="" style="padding:3px 6px;font-size:8px;border-radius:100%;background-color: #c95865;margin-left: -5px">1</span>');
+               /* var user_str = '';
+                var num = 0;
+                $.each(data, function (user) {
+                    num++;
+                    user_str += '<li class="user_'+user.id+'"><a href="#"><img src="'+user.avatar+'" alt="" class="img-circle avatar"></a></li>';
+                });
+                $("#num").html(num);
+                $('.avatar-list').append(user_str);*/
+            });
+        </script>
+
+        @endif
+
     @yield('script')
     @if(session()->has('flash_return_msg'))
         <script>

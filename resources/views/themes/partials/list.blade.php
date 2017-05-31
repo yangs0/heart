@@ -11,16 +11,16 @@
                     </div>
                     <div class="state">
                         @if($theme->focus_count == 0)
-                            <a class="follow-wj cool" href="{{route('theme.show_rooms',$theme->id)}}" >冷清</a>
+                            <a class="follow-wj cool" href="{{route('theme.show_rooms',$theme->id)}}" style="width: 100px;height: 25px" >冷清</a>
                         @elseif($theme->focus_count <5)
-                            <a class="follow-wj " href="{{route('theme.show_rooms',$theme->id)}}" >闲聊</a>
+                            <a class="follow-wj " href="{{route('theme.show_rooms',$theme->id)}}" style="width: 100px;height: 25px">闲聊</a>
                         @else
-                            <a class="follow-wj following" href="{{route('theme.show_rooms',$theme->id)}}" >火热</a>
+                            <a class="follow-wj following" href="{{route('theme.show_rooms',$theme->id)}}" style="width: 100px;height: 25px">火热</a>
                         @endif
 
                         <span><span class="count">{{$theme->focus_count}}</span>人正在交流</span>
                     </div>
-                    <p>{{str_limit($theme->intro,100,'...')}}</p>
+                    <p class="">{{str_limit($theme->intro,60,'...')}}</p>
                     <div class="big-content">
                         @foreach($theme->topics as $topic)
                             <div class="another-theme">

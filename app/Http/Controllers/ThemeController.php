@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Redis;
 class ThemeController extends Controller
 {
     public function __construct(){
-       // $this->middleware('auth');
+        $this->middleware('auth',['only'=>['chat','show_rooms']]);
     }
 
     public function index(Theme $theme){
@@ -73,21 +73,32 @@ class ThemeController extends Controller
         //event(new DormChatEvent("sadasdasd", 'test1'));
         $user= Auth::user();
         $roomId = $request->input('theme');
-        ThemeMsg::create(['user_id'=>$user->id, 'theme_id'=>$roomId, 'message'=>$request->input('msg')]);
+        $theme = Theme::findOrFail($roomId);
+        if ($theme->is_store){
+            ThemeMsg::create(['user_id'=>$user->id, 'theme_id'=>$roomId, 'message'=>$request->input('msg')]);
+        }
+
 
         $data = [
             'event'=>"theme-Room:".$roomId,
             'data'=>[
                 'user'=>$user,
                 'msg'=>$request->input('msg')
-            ]
+            ],
+            'type'=>"chat"
         ];
-        Redis::publish('chatRoom',json_encode($data));
+        Redis::publish('noServer',json_encode($data));
     }
 
     public function updateNum(Request $request){
         $theme = Theme::findOrFail($request->input('id'));
         $theme->focus_count = $request->input('num');
+        $theme->save();
+        return response()->json(['status'=>200,'msg'=>'success','data'=>[]]);
+    }
+    public function updateMsgStore(Request $request){
+        $theme = Theme::findOrFail($request->input('id'));
+        $theme->is_store = $request->input('store');
         $theme->save();
         return response()->json(['status'=>200,'msg'=>'success','data'=>[]]);
     }

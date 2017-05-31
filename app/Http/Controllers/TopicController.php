@@ -19,7 +19,7 @@ class TopicController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth', ['only'=>['doVote']]);
+        $this->middleware('auth', ['only'=>['doVote','create','store']]);
     }
     /**
      * Display a listing of the resource.

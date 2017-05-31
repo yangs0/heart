@@ -21,6 +21,7 @@ Route::get("/active/verify/{token}/{email}", "UserController@activeUser")->name(
 
 Route::get('/themes', 'ThemeController@index');  //主题广场-- （活动列表尚为完成，尚有链接，图像细节尚未补全）
 Route::post('/themes/user_count', 'ThemeController@updateNum')->name('theme.user_count');
+Route::post('/themes/msgdb', 'ThemeController@updateMsgStore')->name('theme.msgdb');
 Route::post('/themes/chat', 'ThemeController@chat')->name('theme.chat');
 Route::get('/themes/{id}', 'ThemeController@show')->name('theme.show');  //主题  (区分topic 类别，尚未完成)
 Route::get('/themes/{id}/topic', 'ThemeController@show_topic')->name('theme.show_topic');  //主题  (区分topic 类别，尚未完成)
@@ -61,6 +62,7 @@ Route::resource('activities', 'ActivityController', ['only'=>['index','show','cr
 /*-------------user private letter------------------*/
 
 Route::get("/users/letter","NoticeController@letter")->name('users.letter');
+Route::post("/users/avatar","UploadsController@avatar")->name('users.avatar');
 Route::post("/users/letter/send","NoticeController@sendLetter")->name('users.letter.send');
 
 Route::get("/users/letter/{id}","NoticeController@letterChat")->name('users.chat');
@@ -91,5 +93,12 @@ Route::get('/users/{id}/comment', 'UserController@showComment')->name('users.com
 
 Route::resource('users', 'UserController', ['only'=>['show','update']]);
 
-
 /*---------------------------------------------*/
+Route::get('/admin/user','AdminController@user');
+Route::post('/admin/user/banned','AdminController@bannedUser')->name('admin.user.banned');
+Route::post('/admin/topic/banned','AdminController@bannedTopic')->name('admin.topic.banned');
+Route::post('/admin/topic/excellent','AdminController@excellentTopic')->name('admin.topic.excellent');
+Route::get('/admin/topic','AdminController@topic');
+Route::get('/admin/activity','AdminController@activity');
+Route::get('/admin/room','AdminController@room');
+Route::get('/admin/room/banned','AdminController@bannedRoom')->name('admin.room.banned');

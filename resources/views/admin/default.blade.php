@@ -26,13 +26,13 @@
 </head>
 
 <body data-type="widgets">
-<script src="{{asset('/js/theme.js')}}"></script>
+<script src="{{asset('/assets/js/admin/theme.js')}}"></script>
 <div class="am-g tpl-g">
     <!-- 头部 -->
     <header>
         <!-- logo -->
         <div class="am-fl tpl-header-logo">
-            <a href="javascript:;"><img src="{{url('/images/logo.png')}}" alt=""></a>
+            <a href="javascript:;"><img src="{{url('/uploads/logo.png')}}" alt=""></a>
         </div>
         <!-- 右侧内容 -->
         <div class="tpl-header-fluid">
@@ -43,21 +43,6 @@
                 </span>
             </div>
 
-            <!-- 其它功能-->
-            <div class="am-fr tpl-header-navbar">
-                <ul>
-                    <!-- 欢迎语 -->
-                    <li class="am-text-sm tpl-header-navbar-welcome">
-                        <a href="javascript:;">欢迎你, <span>Admin</span> </a>
-                    </li>
-                    <!-- 退出 -->
-                    <li class="am-text-sm">
-                        <a href="{{route('logout')}}">
-                            <span class="am-icon-sign-out"></span> 退出
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
 
     </header>
@@ -95,18 +80,23 @@
         <ul class="sidebar-nav">
 
             <li class="sidebar-nav-link">
-                <a href="{{url('/admin/ticket')}}">
-                    <i class="am-icon-home sidebar-nav-link-logo"></i> 优惠券
+                <a href="/admin/user">
+                    <i class="am-icon-user sidebar-nav-link-logo"></i> 用户管理
                 </a>
             </li>
             <li class="sidebar-nav-link">
-                <a href="{{route('turn.config')}}">
-                    <i class="am-icon-table sidebar-nav-link-logo"></i> 大转盘
+                <a href="/admin/topic">
+                    <i class="am-icon-table sidebar-nav-link-logo"></i> 话题管理
                 </a>
             </li>
             <li class="sidebar-nav-link">
-                <a href="{{route('logs.show')}}">
-                    <i class="am-icon-gift sidebar-nav-link-logo"></i> 获奖日志
+                <a href="/admin/activity">
+                    <i class="am-icon-gift sidebar-nav-link-logo"></i> 活动管理
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="/admin/room">
+                    <i class="am-icon-gift sidebar-nav-link-logo"></i> 聊天室管理
                 </a>
             </li>
         </ul>
@@ -121,7 +111,7 @@
 
 <script src="{{asset('/assets/js/admin/amazeui.min.js')}}"></script>
 <script src="{{asset('/assets/js/admin/amazeui.datatables.min.js')}}"></script>
-<script src="{{asset('/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('/assets/js/admin/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('/assets/js/admin/app.js')}}"></script>
 @yield('script')
 </body>

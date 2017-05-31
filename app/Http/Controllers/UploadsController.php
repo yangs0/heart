@@ -14,7 +14,10 @@ class UploadsController extends Controller{
     }
 
     public function avatar(Request $request){
-        $avatarPath = $this->fileRepository->base64ImageUploads($request->input('avatar'),'/uploads/avatar', "Ten_year.");
+        $user = Auth::user();
+        $avatarPath = $this->fileRepository->base64ImageUploads($request->input('avatar'),'/uploads/avatars', $user->name);
+        $user->avatar = $avatarPath;
+        $user->save();
         return response()->json(["status"=>"success","file_path"=>asset($avatarPath)]);
     }
 

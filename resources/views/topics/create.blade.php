@@ -5,13 +5,12 @@
     @stop
 @section('content')
     <div class="container">
-        <div class="alert whitebk setborder" style="margin:0 15px 15px">我们希望 Laravel China 能够成为拥有浓厚技术氛围的开发者社区，而实现这个目标，需要我们所有人的共同努力：友善，公平，尊重知识和事实。请严格遵守 - </div>
+        <div class="alert whitebk setborder" style="margin:0 15px 15px">我们希望能够成为拥有积极向上氛围的交流社区，而实现这个目标，需要我们所有人的共同努力：友善，公平，尊重知识和事实。请严格遵守 - </div>
 
-        {{dump($errors)}}
         <div class="col-sm-9">
             <div class="whitebk setborder">
                 <div class="set-title">创建话题</div>
-                <div class="prompt-text">友情提示：可以直接把个人收藏在图谱中的内容提交给知识库哦</div>
+                <div class="prompt-text">友情提示：每个话题需要选择相应主题哦</div>
                 <div class="container-fluid">
                     <form id="create_form" action="{{route('topic.store')}}" method="post" class="create-form" enctype="multipart/form-data" >
                         {{csrf_field()}}
@@ -28,15 +27,17 @@
 
                         <div class="form-group" id="source" >
                             <div class="group">
+
                                 <label class="col-xs-3 col-sm-2 control-label text-left">来源信息：</label>
+                                <div class="col-sm-5 col-xs-12">
+                                    <input type="text" class="form-control" value="" placeholder="URL链接" name="sourceUrl" data-bv-group=".group">
+                                </div>
                                 <div class="col-xs-9 col-sm-3">
-                                    <input type="text" class="form-control" value="" placeholder="信息来源" name="source">
+                                    <input type="text" class="form-control hidden"  value="相关链接" placeholder="信息来源" name="source">
                                 </div>
                             </div>
                            <div class="group">
-                               <div class="col-sm-5 col-xs-12">
-                                   <input type="text" class="form-control" value="" placeholder="URL链接" name="sourceUrl" data-bv-group=".group">
-                               </div>
+
                                <div class="clearfix"></div>
                            </div>
                         </div>
@@ -101,7 +102,7 @@
 
                 </div>
             </div>--}}
-            <div class="whitebk setborder">
+            <div class="whitebk setborder hidden-xs hidden-sm">
                 <div class="relative-themes">
                     <div class="title">
                         <span style="cursor: default;font-weight: 700;">话题光荣榜</span>
